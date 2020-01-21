@@ -126,7 +126,7 @@
                 }(a))
             })
 }
-var ac = window.location.hostname;
+
 function n(d) {
     try {
         var c = d[0].getBoundingClientRect().width
@@ -188,4 +188,5 @@ function ae(d, g) {
         })
     }
 })(jQuery);
+var ac = window.location.hostname;
 
