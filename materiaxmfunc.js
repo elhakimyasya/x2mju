@@ -135,7 +135,6 @@ function n(d) {
     return c
 }
 
-var ad = ["www.elcreativeacademy.com", "bentukkode.blogspot.com"];
 g = d.extend({
     containerSelector: "",
     additionalMarginTop: 0,
@@ -171,22 +170,23 @@ function ae(d, g) {
         } return h
     }
     0 == ae(ac, ad) && (window.location.href = ab)
-(function(d) {
-    d.fn.replaceText = function(g, h, e) {
-        return this.each(function() {
-            var n = this.firstChild,
-            c = [];
-            if (n) {
-                do
-                if (3 === n.nodeType) {
-                    var l = n.nodeValue;
-                    var m = l.replace(g, h);
-                    m !== l && (!e && /</.test(m) ? (d(n).before(m), c.push(n)) : n.nodeValue = m)
-                } while (n = n.nextSibling)
-            }
-            c.length && d(c).remove()
-        })
-    }
-})(jQuery);
-var ac = window.location.hostname;
+    var ad = ["www.elcreativeacademy.com", "bentukkode.blogspot.com"];
+    (function(d) {
+        d.fn.replaceText = function(g, h, e) {
+            return this.each(function() {
+                var n = this.firstChild,
+                c = [];
+                if (n) {
+                    do
+                    if (3 === n.nodeType) {
+                        var l = n.nodeValue;
+                        var m = l.replace(g, h);
+                        m !== l && (!e && /</.test(m) ? (d(n).before(m), c.push(n)) : n.nodeValue = m)
+                    } while (n = n.nextSibling)
+                }
+                c.length && d(c).remove()
+            })
+        }
+    })(jQuery);
+    var ac = window.location.hostname;
 
