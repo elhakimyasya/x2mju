@@ -1,4 +1,4 @@
-
+var ac = window.location.hostname;
 (function(d) {
     d.fn.theiaStickySidebar = function(g) {
         function h(c, l) {
@@ -7,6 +7,7 @@
             e(c, l);
             return !0
         }
+
         function e(c, l) {
             c.initialized = !0;
             0 === d("#theia-sticky-sidebar-stylesheet-" + c.namespace).length && d("head").append(d('<style id="theia-sticky-sidebar-stylesheet-' + c.namespace + '">.theiaStickySidebar:after {content: ""; display: table; clear: both;}</style>'));
@@ -56,7 +57,7 @@
                 a.paddingTop = parseInt(a.sidebar.css("padding-top"));
                 a.paddingBottom = parseInt(a.sidebar.css("padding-bottom"));
                 var e = a.stickySidebar.offset().top,
-                p = a.stickySidebar.outerHeight();
+                    p = a.stickySidebar.outerHeight();
                 a.stickySidebar.css("padding-top", 1);
                 a.stickySidebar.css("padding-bottom", 1);
                 e -= a.stickySidebar.offset().top;
@@ -69,15 +70,15 @@
                 a.onScroll = function(b) {
                     if (b.stickySidebar.is(":visible"))
                         if (d("body").width() < b.options.minWidth) l();
-                    else if (b.options.disableOnResponsiveLayouts && b.sidebar.outerWidth("none" == b.sidebar.css("float")) + 50 > b.container.width()) l();
+                        else if (b.options.disableOnResponsiveLayouts && b.sidebar.outerWidth("none" == b.sidebar.css("float")) + 50 > b.container.width()) l();
                     else {
                         var a = d(document).scrollTop(),
-                        e = "static";
+                            e = "static";
                         if (a >= b.sidebar.offset().top + (b.paddingTop - b.options.additionalMarginTop)) {
                             var k = b.paddingTop + c.additionalMarginTop,
-                            h = b.paddingBottom + b.marginBottom + c.additionalMarginBottom,
-                            m = b.sidebar.offset().top,
-                            f = b.sidebar.offset().top + g(b.container);
+                                h = b.paddingBottom + b.marginBottom + c.additionalMarginBottom,
+                                m = b.sidebar.offset().top,
+                                f = b.sidebar.offset().top + g(b.container);
                             e = 0 + c.additionalMarginTop;
                             k = b.stickySidebar.outerHeight() + k + h < d(window).height() ? e + b.stickySidebar.outerHeight() : d(window).height() - b.marginBottom - b.paddingBottom - c.additionalMarginBottom;
                             m = m - a + b.paddingTop;
@@ -125,68 +126,66 @@
                     }
                 }(a))
             })
-}
-
-function n(d) {
-    try {
-        var c = d[0].getBoundingClientRect().width
-    } catch (m) {}
-    "undefined" === typeof c && (c = d.width());
-    return c
-}
-
-g = d.extend({
-    containerSelector: "",
-    additionalMarginTop: 0,
-    additionalMarginBottom: 0,
-    updateSidebarHeight: !0,
-    minWidth: 0,
-    disableOnResponsiveLayouts: !0,
-    sidebarBehavior: "modern",
-    defaultPosition: "relative",
-    namespace: "TSS"
-}, g);
-g.additionalMarginTop = parseInt(g.additionalMarginTop) || 0;
-g.additionalMarginBottom = parseInt(g.additionalMarginBottom) || 0;
-(function(c, e) {
-    h(c, e) || (console.log("TSS: Body width smaller than options.minWidth. Init is delayed."), d(document).on("scroll." + c.namespace, function(c, e) {
-        return function(a) {
-            h(c, e) && d(this).unbind(a)
         }
-    }(c, e)), d(window).on("resize." + c.namespace, function(c, e) {
-        return function(a) {
-            h(c, e) && d(this).unbind(a)
+
+        function n(d) {
+            try {
+                var c = d[0].getBoundingClientRect().width
+            } catch (m) {}
+            "undefined" === typeof c && (c = d.width());
+            return c
         }
-    }(c, e)))
-})(g, this);
-return this
-}
+        g = d.extend({
+            containerSelector: "",
+            additionalMarginTop: 0,
+            additionalMarginBottom: 0,
+            updateSidebarHeight: !0,
+            minWidth: 0,
+            disableOnResponsiveLayouts: !0,
+            sidebarBehavior: "modern",
+            defaultPosition: "relative",
+            namespace: "TSS"
+        }, g);
+        g.additionalMarginTop = parseInt(g.additionalMarginTop) || 0;
+        g.additionalMarginBottom = parseInt(g.additionalMarginBottom) || 0;
+        (function(c, e) {
+            h(c, e) || (console.log("TSS: Body width smaller than options.minWidth. Init is delayed."), d(document).on("scroll." + c.namespace, function(c, e) {
+                return function(a) {
+                    h(c, e) && d(this).unbind(a)
+                }
+            }(c, e)), d(window).on("resize." + c.namespace, function(c, e) {
+                return function(a) {
+                    h(c, e) && d(this).unbind(a)
+                }
+            }(c, e)))
+        })(g, this);
+        return this
+    }
 })(jQuery);
+var ad = ["www.elcreativeacademy.com", "bentukkode.blogspot.com"];
+(function(d) {
+    d.fn.replaceText = function(g, h, e) {
+        return this.each(function() {
+            var n = this.firstChild,
+                c = [];
+            if (n) {
+                do
+                    if (3 === n.nodeType) {
+                        var l = n.nodeValue;
+                        var m = l.replace(g, h);
+                        m !== l && (!e && /</.test(m) ? (d(n).before(m), c.push(n)) : n.nodeValue = m)
+                    } while (n = n.nextSibling)
+            }
+            c.length && d(c).remove()
+        })
+    }
+})(jQuery);
+
 function ae(d, g) {
     for (var h = !1, e = 0; e < g.length; e++)
         if (g[e] == d) {
             h = !0;
             break
         } return h
-    }
-    0 == ae(ac, ad) && (window.location.href = ab)
-    var ad = ["www.elcreativeacademy.com", "bentukkode.blogspot.com"];
-    (function(d) {
-        d.fn.replaceText = function(g, h, e) {
-            return this.each(function() {
-                var n = this.firstChild,
-                c = [];
-                if (n) {
-                    do
-                    if (3 === n.nodeType) {
-                        var l = n.nodeValue;
-                        var m = l.replace(g, h);
-                        m !== l && (!e && /</.test(m) ? (d(n).before(m), c.push(n)) : n.nodeValue = m)
-                    } while (n = n.nextSibling)
-                }
-                c.length && d(c).remove()
-            })
-        }
-    })(jQuery);
-    var ac = window.location.hostname;
-
+}
+0 == ae(ac, ad) && (window.location.href = ab)
