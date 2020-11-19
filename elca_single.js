@@ -8,3 +8,9 @@ function adBlockNotDetected(){}function adBlockDetected(){$("#post-body").replac
 
 $(".show-comment-btn, .comment-close, .entry-comments-link").on("click", function(){$(".blog-post-comments").toggleClass("active");}); 
 $("#elcTOC").clone().insertAfter(".modal-backdrop .title");
+$(".tocshow").on("click", function(){
+									$(".modal-backdrop").toggleClass("show")
+									});
+									$(".modal-backdrop").on("click", function(){
+									$(".modal-backdrop").removeClass("show")
+									});
