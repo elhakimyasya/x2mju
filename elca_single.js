@@ -12,4 +12,4 @@ b.async="true";b.onload=function(){_WidgetManager._Init("//www.blogger.com/rearr
 f+"&publishedMin="+w+"&xssi_token=AOuZoY4tR91GIm4atCD_-XhxENqtw38CgQ%3A1594209309080";document.getElementsByTagName("body")[0].appendChild(h)};document.getElementsByTagName("body")[0].appendChild(b)}))}}
 
 function tocShow(){document.querySelector('.modal-backdrop').classList.toggle('show')};function modalBackdrop(){document.querySelector('.modal-backdrop').classList.remove('show')}
-$(".show-comment-btn, .comment-close, .entry-comments-link").on("click",function(){$(".blog-post-comments").toggleClass("active");aFunction()});$("#elcTOC").clone().insertAfter(".modal-backdrop .title")
+$(".show-comment-btn, .comment-close, .entry-comments-link").on("click",function(e){e.preventDefault();$(".blog-post-comments").toggleClass("active");aFunction()});$("#elcTOC").clone().insertAfter(".modal-backdrop .title")
