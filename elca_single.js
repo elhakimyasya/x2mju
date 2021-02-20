@@ -6,4 +6,22 @@ function adBlockNotDetected(){}var importFAB,postBody=document.getElementById("p
 
 function aFunction(){var e,t,n;document.querySelector("section#comments")&&((e=document.createElement("script")).async=!0,e.src="//www.blogger.com/static/v1/jsbin/3858658042-comment_from_post_iframe.js",e.onload=function(){BLOG_CMT_createIframe("<data:post.appRpcRelayPath/>"),document.querySelector("#top-continue a").setAttribute("href","javascript:void(0);"),document.querySelector(".comment-reply").setAttribute("href","javascript:void(0);");var e,t=document.getElementById("comment-editor"),n=t.src,o=document.querySelectorAll("ol .comment-reply"),c=document.getElementsByClassName("comment-form")[0],a=o.length,d=document.getElementById("top-continue");for(i=0;i<a;i++)!function(t,n,o,c){t.addEventListener("click",function(){var e=t.getAttribute("data-comment-id");document.querySelector("#c"+e+" > .comment-replybox-single").appendChild(n),o.src=c+"&parentID="+e,d.classList.remove("hidden"),d&&document.querySelector("#top-continue a").classList.remove("hidden")})}(o[i],c,t,n);d&&(d.classList.add("hidden"),j=d.getElementsByTagName("a")[0],j.removeAttribute("class"),(e=document.querySelector("#top-continue > a")).addEventListener("click",function(){e.parentNode.appendChild(c),t.src=n,j.classList.add("hidden")}))},document.getElementsByTagName("body")[0].appendChild(e),t=(e=document.querySelector("#comment-holder .loadmore")).getAttribute("data-published-min"),n=parseInt(t)+1,f=e.getAttribute("data-post-id"),g=document.querySelector('link[rel="canonical').getAttribute("href"),e&&t&&(e.classList.contains("hidden")&&e.classList.remove("hidden"),e.addEventListener("click",function(){var e=document.createElement("script");e.src="//www.blogger.com/static/v1/widgets/2195516358-widgets.js",e.async="true",e.onload=function(){_WidgetManager._Init("//www.blogger.com/rearrange?blogID=4156644495655521536","","4156644495655521536"),_WidgetManager._SetDataContext([{data:{dynamicViewsCommentsSrc:"//www.blogblog.com/dynamicviews/f0c16c7f605505d1/js/comments.js"}}]),_WidgetManager._RegisterWidget("_BlogView",new _WidgetInfo("Blog1","mainbar",document.getElementById("Blog1"),{useNgc:!0},"displayModeFull")),h=document.createElement("script"),h.async=!0,h.src=g+"?action=getComments&widgetId=Blog1&widgetType=Blog&responseType=js&postId="+f+"&publishedMin="+n+"&xssi_token=AOuZoY4tR91GIm4atCD_-XhxENqtw38CgQ%3A1594209309080",document.getElementsByTagName("body")[0].appendChild(h)},document.getElementsByTagName("body")[0].appendChild(e)})))}
 
-function tocShow(){document.querySelector(".modal-backdrop").classList.toggle("show")}function modalBackdrop(){document.querySelector(".modal-backdrop").classList.remove("show")}var toggleComment=document.querySelector(".show-comment-btn, .comment-close, .entry-comments-link"),blogComment=document.querySelector(".blog-post-comments"),tocButton=document.querySelector("#elcTOC"),tocNode=tocButton.cloneNode(!0),tocContent=document.querySelector(".modal-backdrop .title");function insertAfter(e,o){o.parentNode.insertBefore(e,o.nextSibling)}toggleComment.addEventListener("click",function(e){e.preventDefault(),blogComment.classList.toggle("active"),aFunction()}),insertAfter(tocNode,tocContent);
+function tocShow(){document.querySelector(".modal-backdrop").classList.toggle("show")}function modalBackdrop(){document.querySelector(".modal-backdrop").classList.remove("show")}
+
+var toggleComment = document.querySelectorAll('.show-comment-btn', '.comment-close', '.entry-comments-link'),
+  blogComment = document.querySelector('.blog-post-comments'),
+  tocButton = document.querySelector('#elcTOC'),
+  tocNode = tocButton.cloneNode(true),
+  tocContent = document.querySelector('.modal-backdrop .title');
+
+for (var z = 0; z < toggleComment.length; z++) {
+  var elem = toggleComment[z];
+  elem.onclick = function(e) {
+    e.preventDefault();
+
+    blogComment.classList.toggle('active');
+
+    aFunction();
+  };
+}
+
