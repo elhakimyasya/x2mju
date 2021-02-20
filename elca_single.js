@@ -25,3 +25,10 @@ for (var z = 0; z < toggleComment.length; z++) {
   };
 }
 
+
+function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
+insertAfter(tocNode, tocContent);
+
