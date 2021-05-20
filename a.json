@@ -11,12 +11,12 @@
   },
   {
     "id": 2,
-    "name": "mdi-menu",
+    "name": "mdi-light-menu",
     "author": "Austin Andrews",
-    "sets": "Material Design Icons",
+    "sets": "Material Design Light",
     "data": {
       "viewbox": "0 0 24 24",
-      "path": "M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"
+      "path": "M3 8V7h17v1H3zm17 4v1H3v-1h17zM3 17h17v1H3v-1z"
     }
   }
 ]
