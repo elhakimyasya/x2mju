@@ -234,12 +234,21 @@
     }
   },
   {
-    "name": "fe-bar",
-    "author": "Megumi Hano",
-    "sets": "Feather Icon",
+    "name": "radix-icons-hamburger-menu",
+    "author": "Modulz",
+    "sets": "Radix Icons",
+    "data": {
+      "viewbox": "0 0 15 15",
+      "path": "M1.5 3a.5.5 0 0 0 0 1h12a.5.5 0 0 0 0-1h-12zM1 7.5a.5.5 0 0 1 .5-.5h12a.5.5 0 0 1 0 1h-12a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h12a.5.5 0 0 1 0 1h-12a.5.5 0 0 1-.5-.5z"
+    }
+  },
+  {
+    "name": "gridicons-menu",
+    "author": "Automattic",
+    "sets": "Gridicons",
     "data": {
       "viewbox": "0 0 24 24",
-      "path": "M3 16h18v2H3v-2zm0-5h18v2H3v-2zm0-5h18v2H3V6z"
+      "path": "M21 6v2H3V6h18zM3 18h18v-2H3v2zm0-5h18v-2H3v2z"
     }
   }
 ]
