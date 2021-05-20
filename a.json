@@ -98,5 +98,25 @@
       "viewbox": "0 0 24 24",
       "path": "M6 7h5a1 1 0 1 1 0 2H6a1 1 0 1 1 0-2zm7 8h5a1 1 0 0 1 0 2h-5a1 1 0 1 1 0-2zm-7-4h12a1 1 0 0 1 0 2H6a1 1 0 1 1 0-2z"
     }
+  },
+  {
+    "id": 11,
+    "name": "ion-menu-sharp",
+    "author": "Ben Sperry",
+    "sets": "IonIcons",
+    "data": {
+      "viewbox": "0 0 512 512",
+      "path": "M64 384h384v-42.67H64zm0-106.67h384v-42.66H64zM64 128v42.67h384V128z"
+    }
+  },
+  {
+    "id": 12,
+    "name": "bi-list",
+    "author": "The Bootstrap Authors",
+    "sets": "Bootstrap Icons",
+    "data": {
+      "viewbox": "0 0 16 16",
+      "path": "M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+    }
   }
 ]
