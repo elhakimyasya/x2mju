@@ -36,6 +36,8 @@ function elcreativeAuthProfile () {
 
       document.querySelector(".auth_post_container").classList.remove("loading"), document.querySelector(".auth_post_container").innerHTML = postContent;
 
+      easyToggleState();
+
       var refUsers = firebase.database().ref().child('Users/' + rtdb.uid);
       refUsers.set({
         userData : {
