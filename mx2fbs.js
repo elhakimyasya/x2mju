@@ -23,13 +23,13 @@ function elcreativeAuthLogin() {
   (new firebaseui.auth.AuthUI(firebase.auth())).start("#firebaseui-auth-container", config);
 };
 
-function profile() {
+function elcreativeAuthProfile() {
   firebase.auth().onAuthStateChanged(function(db) {
     var settings;
     var controller;
     var n;
     if (db) {
-      document.getElementById("logout").onclick = function() {
+      document.getElementById("auth_logout").onclick = function() {
         firebase.auth().signOut();
         localStorage.removeItem("auth_image")
       };
@@ -39,7 +39,7 @@ function profile() {
 
       n = '<div class="__avatar"><img src="' + db.photoURL + '"/></div><div class="__info"><div class="__name"><span>' + db.displayName + '</span></div><span></span><span class="__email">' + db.email + "</span></div></div>";
 
-      document.querySelector(".__profile_container").classList.remove("__loading"), document.querySelector(".__profile_container").innerHTML = n;
+      document.querySelector(".auth_profile_container .auth_profile").innerHTML = n;
 
       
 
