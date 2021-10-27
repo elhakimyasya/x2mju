@@ -59,3 +59,5 @@ function profile() {
     }
   });
 };
+
+firebase.initializeApp(config);
