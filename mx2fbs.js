@@ -32,7 +32,7 @@ function elcreativeAuthProfile () {
       document.querySelector(".auth_profile_container").classList.remove("loading"), document.querySelector(".auth_profile_container").innerHTML = profileContent;
 
       postContent = "";
-      postContent = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + rtdb.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + rtdb.displayName + '</div><div class="auth_email">' + rtdb.email + "</div></div></div>";
+      postContent = '<div class="example-tabs" role="tablist"><button type="button" id="tab_1_KldSY" data-toggle-class="" data-toggle-target="#tabPanel_1_KldSY" data-toggle-radio-group="tabsGroup_jWIl4" data-toggle-arrows="" data-toggle-is-active="" role="tab" aria-selected="false" aria-controls="tabPanel_1_KldSY">tab 1</button><button type="button" id="tab_1_aKNv5" data-toggle-class="" data-toggle-target="#tabPanel_2_aKNv5" data-toggle-radio-group="tabsGroup_jWIl4" data-toggle-arrows="" role="tab" aria-selected="false" aria-controls="tabPanel_2_aKNv5">tab 2</button><button type="button" id="tab_3_cUJnt" data-toggle-class="" data-toggle-target="#tabPanel_3_cUJnt" data-toggle-radio-group="tabsGroup_jWIl4" data-toggle-arrows="" role="tab" aria-selected="false" aria-controls="tabPanel_3_cUJnt">tab 3</button></div>"';
 
       document.querySelector(".auth_post_container").classList.remove("loading"), document.querySelector(".auth_post_container").innerHTML = postContent;
 
