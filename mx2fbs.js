@@ -1,11 +1,3 @@
-var config = {
-  apiKey: "AIzaSyCmWRraw2UZWfp_C6p3a4QYhci5LmhtSfY",
-  authDomain: "elc-academy.firebaseapp.com",
-  databaseURL: "https://elc-academy-default-rtdb.firebaseio.com/",
-  storageBucket: "elc-academy.appspot.com"
-};
-
-
 function elcreativeAuthLogin() {
   firebase.auth().onAuthStateChanged(function(event) {
     if (event) {
@@ -37,7 +29,7 @@ function elcreativeAuthProfile () {
       settings = (controller = firebase.database().ref(db.displayName)).child("Posts");
       controller = controller.child("Files");
 
-      n = '<div class="auth_avatar"><span class="lazyload shimmer" data-src="' + db.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + db.displayName + '</div><div class="auth_email">' + db.email + "</div></div>";
+      n = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-src="' + db.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + db.displayName + '</div><div class="auth_email">' + db.email + "</div></div></div>";
 
       document.querySelector(".auth_profile_container").classList.remove("loading"), document.querySelector(".auth_profile_container").innerHTML = n;
 
@@ -65,5 +57,3 @@ function elcreativeAuthProfile () {
     }
   });
 };
-
-firebase.initializeApp(config);
