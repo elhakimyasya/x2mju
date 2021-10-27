@@ -29,7 +29,7 @@ function elcreativeAuthProfile () {
       settings = (controller = firebase.database().ref(db.displayName)).child("Posts");
       controller = controller.child("Files");
 
-      n = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-src="' + db.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + db.displayName + '</div><div class="auth_email">' + db.email + "</div></div></div>";
+      n = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + db.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + db.displayName + '</div><div class="auth_email">' + db.email + "</div></div></div>";
 
       document.querySelector(".auth_profile_container").classList.remove("loading"), document.querySelector(".auth_profile_container").innerHTML = n;
 
