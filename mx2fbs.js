@@ -28,7 +28,7 @@ function elcreativeAuthProfile () {
       document.querySelector(".auth_profile_container").classList.remove("loading"), document.querySelector(".auth_profile_container").innerHTML = profileContent, document.querySelector(".auth_post_container").classList.remove("loading");
 
       var refUsers = firebase.database().ref().child('Users/' + rtdb.uid);
-      refUsers.set({
+      refUsers.update({
         userData : {
           userEmail: rtdb.email,
           userName: rtdb.displayName,
