@@ -36,7 +36,6 @@ function elcreativeAuthProfile () {
           userEmail: rtdb.email,
           userName: rtdb.displayName,
           userPhotoUrl: rtdb.photoURL,
-          userPhone: rtdb.phoneNumber,
           userUID: rtdb.uid
         }
       });
