@@ -33,16 +33,16 @@ function profile() {
         var t, a, n;
         e ? (document.getElementById("logout").onclick = function() {
             firebase.auth().signOut()
-        }, n = "", t = (a = firebase.database().ref(e.displayName)).child("Posts"), a = a.child("Files"), n = '<div class="__avatar"><img src="' + e.photoURL + '"/></div><div class="__info"><div class="__name"><span>' + e.displayName + '</span></div><span></span><span class="__email">' + e.email + "</span></div></div>", $(".__profile_container").removeClass("__loading").prepend(n).find(".__loader").remove(), t.limitToLast(5).once("value", function(e) {
+        }, n = "", t = (a = firebase.database().ref(e.displayName)).child("Posts"), a = a.child("Files"), n = '<div class="__avatar"><img src="' + e.photoURL + '"/></div><div class="__info"><div class="__name"><span>' + e.displayName + '</span></div><span></span><span class="__email">' + e.email + "</span></div></div>", var profileContainer=document.querySelector(".__profile_container"); profileContainer.classList.remove("__loading"); profileContainer.appendChild(n).querySelector(".__loader").remove(), t.limitToLast(5).once("value", function(e) {
             var t = "";
             e.forEach(function(e) {
                 entry = e.val(), t = '<div class="__article"><a href="my-posts.html?id=' + e.getKey() + '" title="' + entry.title + '"><div class="panel-heading">' + excerpt(entry.title, 140) + '</div><div class="panel-body"><small>' + datetimeFormat(entry.updatedAt) + '</small></div></a><small class="' + entry.status + '">' + entry.status + "</small></div>" + t
-            }), $("#__entries.__post").removeClass("__loading"), $("#__entries.__post .__panel_content").prepend(t).find(".__loading").remove()
+            }), document.querySelector("#__entries.__post").classList.remove("__loading"), document.querySelector("#__entries.__post .__panel_content").appendChild(t).querySelector(".__loading").remove()
         }), a.once("value", function(e) {
             var t = "";
             e.forEach(function(e) {
                 t = '<div class="__article"><div class="panel-heading">' + e.key + '</div><a href="' + e.val() + '" title="' + e.key + '" target="_blank" rel="nofollow noopener noreferer"><small>Download</small></a></div>' + t
-            }), $("#__entries.__files").removeClass("__loading"), $("#__entries.__files .__panel_content").prepend(t).find(".__loading").remove()
+            }), document.querySelector("#__entries.__files").classList.remove("__loading"), document.querySelector("#__entries.__files .__panel_content").appendChild(t).querySelector(".__loading").remove()
         })) : window.location.href = "sign-in.html"
     })
 }
