@@ -11,6 +11,8 @@ function login() {
     if (event) {
       window.location.href = authProfilePage;
       localStorage.setItem("auth_image", event.photoURL);
+    } else {
+      localStorage.removeItem("auth_image")
     }
   });
   var config = {
@@ -29,6 +31,7 @@ function profile() {
     if (db) {
       document.getElementById("logout").onclick = function() {
         firebase.auth().signOut();
+        localStorage.removeItem("auth_image")
       };
       n = "";
       settings = (controller = firebase.database().ref(db.displayName)).child("Posts");
