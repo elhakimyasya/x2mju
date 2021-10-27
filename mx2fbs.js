@@ -6,7 +6,7 @@ var config = {
 };
 
 
-function login() {
+function elcreativeAuthLogin() {
   firebase.auth().onAuthStateChanged(function(event) {
     if (event) {
       window.location.href = authProfilePage;
