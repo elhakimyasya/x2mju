@@ -6,7 +6,7 @@ var config = {
 };
 
 
-function elcreativeAuthLogin() {
+function login() {
   firebase.auth().onAuthStateChanged(function(event) {
     if (event) {
       window.location.href = authProfilePage;
@@ -23,13 +23,13 @@ function elcreativeAuthLogin() {
   (new firebaseui.auth.AuthUI(firebase.auth())).start("#firebaseui-auth-container", config);
 };
 
-function elcreativeAuthProfile() {
+function profile() {
   firebase.auth().onAuthStateChanged(function(db) {
     var settings;
     var controller;
     var n;
     if (db) {
-      document.getElementById("auth_logout").onclick = function() {
+      document.getElementById("logout").onclick = function() {
         firebase.auth().signOut();
         localStorage.removeItem("auth_image")
       };
@@ -37,9 +37,9 @@ function elcreativeAuthProfile() {
       settings = (controller = firebase.database().ref(db.displayName)).child("Posts");
       controller = controller.child("Files");
 
-      n = '<div class="__avatar"><img src="' + db.photoURL + '"/></div><div class="__info"><div class="__name"><span>' + db.displayName + '</span></div><span></span><span class="__email">' + db.email + "</span></div></div>";
+      n = '<div class="auth_avatar"><span class="lazyload shimmer" data-src="' + db.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + db.displayName + '</div><div class="auth_email">' + db.email + "</div></div>";
 
-      document.querySelector(".auth_profile_container .auth_profile").innerHTML = n;
+      document.querySelector(".__profile_container").classList.remove("__loading"), document.querySelector(".__profile_container").innerHTML = n;
 
       
 
