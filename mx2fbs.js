@@ -57,3 +57,5 @@ function elcreativeAuthProfile () {
     }
   });
 };
+
+firebase.initializeApp(authConfig);
