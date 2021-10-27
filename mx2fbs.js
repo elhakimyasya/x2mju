@@ -37,7 +37,7 @@ function profile() {
 
       document.querySelector(".__profile_container").classList.remove("__loading"), document.querySelector(".__profile_container").innerHTML = n;
 
-      localStorage.setItem("auth_image", "db.photoURL");
+      localStorage.setItem("auth_image", db.photoURL);
 
       // settings.limitToLast(5).once("value", function(wrappersTemplates) {
       //   var out = "";
