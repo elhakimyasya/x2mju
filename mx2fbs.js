@@ -31,8 +31,14 @@ function elcreativeAuthProfile () {
       document.querySelector(".auth_profile_container").classList.remove("loading"), document.querySelector(".auth_profile_container").innerHTML = profileContent;
 
       var refUsers = firebase.database().ref().child('Users/' + rtdb.displayName);
-      refUsers.set({userData : {userName: rtdb.displayName, userPhotoUrl: rtdb.photoURL, userUID: rtdb.userId}});
-      
+      refUsers.set({
+        userData : {
+          userName: rtdb.displayName,
+          userPhotoUrl: rtdb.photoURL,
+          userUID: rtdb.uid
+        }
+      });
+
       // settings = (controller = firebase.database().ref(rtdb.displayName)).child("Posts");
       // controller = controller.child("Files");
       // settings.limitToLast(5).once("value", function(wrappersTemplates) {
