@@ -30,7 +30,7 @@ function elcreativeAuthProfile () {
 
       document.querySelector(".auth_profile_container").classList.remove("loading"), document.querySelector(".auth_profile_container").innerHTML = profileContent;
 
-      var refUsers = firebase.database().ref().child('Users/' + rtdb.displayName);
+      var refUsers = firebase.database().ref().child('Users/' + rtdb.uid);
       refUsers.set({
         userData : {
           userEmail: rtdb.email,
