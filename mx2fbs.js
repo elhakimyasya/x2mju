@@ -29,7 +29,7 @@ function elcreativeAuthProfile () {
     var controller;
     var n;
     if (db) {
-      document.getElementById("logout").onclick = function() {
+      document.getElementById("auth_logout").onclick = function() {
         firebase.auth().signOut();
         localStorage.removeItem("auth_image")
       };
