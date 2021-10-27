@@ -25,12 +25,7 @@ function elcreativeAuthProfile () {
         localStorage.removeItem("auth_image")
       };
       var profileContent = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + rtdb.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + rtdb.displayName + '</div><div class="auth_email">' + rtdb.email + "</div></div></div>";
-      document.querySelector(".auth_profile_container").classList.remove("loading"), document.querySelector(".auth_profile_container").innerHTML = profileContent;
-
-      var postContent = '<div class="elcreative_tab" role="tablist"><div class="tab_button_container"><button id="tab_button_post" class="tab_button elcreative_ripple" aria-controls="tab_panel_post" type="button" data-toggle-target="#tab_panel_post" data-toggle-radio-group="tabsGroup_jWIl4" data-toggle-is-active role="tab" aria-selected="false" data-toggle-arrows data-toggle-class>Post</button><button id="tab_button_post1" class="tab_button elcreative_ripple" aria-controls="tab_panel_post1" type="button" data-toggle-target="#tab_panel_post1" data-toggle-radio-group="tabsGroup_jWIl4" data-toggle-is-active role="tab" aria-selected="false" data-toggle-arrows data-toggle-class>File Access</button></div><div id="tab_panel_post" class="tab_panel_post" role="tabpanel" aria-labelledby="tab_button_post" aria-hidden="true">Tab 1</div>  <div id="tab_panel_post1" class="tab_panel_post" role="tabpanel" aria-labelledby="tab_button_post" aria-hidden="true">Tab 2</div></div>';
-      document.querySelector(".auth_post_container").classList.remove("loading"), document.querySelector(".auth_post_container").innerHTML = postContent;
-
-      easyToggleState();
+      document.querySelector(".auth_profile_container").classList.remove("loading"), document.querySelector(".auth_profile_container").innerHTML = profileContent, document.querySelector(".auth_post_container").classList.remove("loading");
 
       var refUsers = firebase.database().ref().child('Users/' + rtdb.uid);
       refUsers.set({
@@ -46,7 +41,7 @@ function elcreativeAuthProfile () {
       refPosts.limitToLast(5).once("value", function(postItem) {
         postItem.forEach(function($s) {
           out = '<div class="__article"><a href="my-posts.html?id=' + $s.getKey() + '" title="' + entry.title + '"><div class="panel-heading">' + entry.title + '</div></a></div>' + out;
-          document.querySelector("#tab_panel_post").classList.remove("loading"), document.querySelector("#tab_panel_post").innerHTML = out;
+          document.querySelector(".tab_panel_post").classList.remove("loading"), document.querySelector(".tab_panel_post").innerHTML = out;
         });
       });
 
