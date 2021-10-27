@@ -31,7 +31,7 @@ function elcreativeAuthProfile () {
       document.querySelector(".auth_profile_container").classList.remove("loading"), document.querySelector(".auth_profile_container").innerHTML = profileContent;
 
       var refUsers = firebase.database().ref().child('Users/' + rtdb.displayName);
-      refUsers.set({username: rtdb.displayName, photoURL: rtdb.photoURL});
+      refUsers.set({userData : {userName: rtdb.displayName, userPhotoUrl: rtdb.photoURL, userUID: rtdb.userId}});
       
       // settings = (controller = firebase.database().ref(rtdb.displayName)).child("Posts");
       // controller = controller.child("Files");
