@@ -32,11 +32,11 @@ function elcreativeAuthProfile () {
       document.querySelector(".auth_profile_container").classList.remove("loading"), document.querySelector(".auth_profile_container").innerHTML = profileContent;
 
       postContent = "";
-      postContent = '<div class="elcreative_tab" role="tablist"> <button id="tab_button_post" aria-controls="tab_panel_post" type="button" data-toggle-target="#tabPanel_1_KldSY" data-toggle-radio-group="tabsGroup_jWIl4" data-toggle-is-active role="tab" aria-selected="false" data-toggle-arrows data-toggle-class> tab 1 </button> <div id="tab_panel_post" class="tab_panel_post" role="tabpanel" aria-labelledby="tab_button_post" aria-hidden="true">Tab 1</div> <button id="tab_button_post1" aria-controls="tab_panel_post1" type="button" data-toggle-target="#tabPanel_1_KldSY" data-toggle-radio-group="tabsGroup_jWIl4" data-toggle-is-active role="tab" aria-selected="false" data-toggle-arrows data-toggle-class> tab 1 </button> <div id="tab_panel_post1" class="tab_panel_post1" role="tabpanel" aria-labelledby="tab_button_post" aria-hidden="true">Tab 2</div> </div>';
+      postContent = '<div class="elcreative_tab" role="tablist"><div class="tab_button_container"><button id="tab_button_post" aria-controls="tab_panel_post" type="button" data-toggle-target="#tabPanel_1_KldSY" data-toggle-radio-group="tabsGroup_jWIl4" data-toggle-is-active role="tab" aria-selected="false" data-toggle-arrows data-toggle-class> tab 1 </button><button id="tab_button_post1" aria-controls="tab_panel_post1" type="button" data-toggle-target="#tabPanel_1_KldSY" data-toggle-radio-group="tabsGroup_jWIl4" data-toggle-is-active role="tab" aria-selected="false" data-toggle-arrows data-toggle-class> tab 1 </button></div><div class="tab_panel_container"> <div id="tab_panel_post" class="tab_panel_post" role="tabpanel" aria-labelledby="tab_button_post" aria-hidden="true">Tab 1</div>  <div id="tab_panel_post1" class="tab_panel_post1" role="tabpanel" aria-labelledby="tab_button_post" aria-hidden="true">Tab 2</div> </div></div>';
 
       document.querySelector(".auth_post_container").classList.remove("loading"), document.querySelector(".auth_post_container").innerHTML = postContent;
 
-      
+
       easyToggleState();
 
       var refUsers = firebase.database().ref().child('Users/' + rtdb.uid);
