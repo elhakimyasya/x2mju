@@ -1,8 +1,8 @@
 function elcreativeAuthLogin() {
-  firebase.auth().onAuthStateChanged(function(event) {
-    if (event) {
+  firebase.auth().onAuthStateChanged(function(location) {
+    if (location) {
       window.location.href = authProfilePage;
-      localStorage.setItem("auth_image", event.photoURL);
+      localStorage.setItem("auth_image", location.photoURL);
     } else {
       localStorage.removeItem("auth_image")
     }
@@ -16,22 +16,27 @@ function elcreativeAuthLogin() {
 };
 
 function elcreativeAuthProfile () {
-  firebase.auth().onAuthStateChanged(function(db) {
+  firebase.auth().onAuthStateChanged(function(rtdb) {
     var settings;
     var controller;
-    var n;
-    if (db) {
+    var profileContent;
+    if (rtdb) {
       document.getElementById("auth_logout").onclick = function() {
         firebase.auth().signOut();
         localStorage.removeItem("auth_image")
       };
-      n = "";
-      settings = (controller = firebase.database().ref(db.displayName)).child("Posts");
+      profileContent = "";
+      settings = (controller = firebase.database().ref(rtdb.displayName)).child("Posts");
       controller = controller.child("Files");
 
-      n = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + db.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + db.displayName + '</div><div class="auth_email">' + db.email + "</div></div></div>";
+      profileContent = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + rtdb.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + rtdb.displayName + '</div><div class="auth_email">' + rtdb.email + "</div></div></div>";
 
-      document.querySelector(".auth_profile_container").classList.remove("loading"), document.querySelector(".auth_profile_container").innerHTML = n;
+      document.querySelector(".auth_profile_container").classList.remove("loading"), document.querySelector(".auth_profile_container").innerHTML = profileContent;
+
+      rtdb = {}
+      var refUsers = firebase.database().ref("Userz");
+      var refAuthor = refUsers.child(rtdb.displayName);
+      refAuthor.push(rtdb)
 
       
 
@@ -58,4 +63,4 @@ function elcreativeAuthProfile () {
   });
 };
 
-firebase.initializeApp(authConfig);
+firebase.initializeApp(firebaseConfig);
