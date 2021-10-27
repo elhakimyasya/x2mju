@@ -6,7 +6,7 @@ var config = {
 };
 
 
-function login() {
+function elcreativeAuthLogin() {
   firebase.auth().onAuthStateChanged(function(event) {
     if (event) {
       window.location.href = authProfilePage;
@@ -23,7 +23,7 @@ function login() {
   (new firebaseui.auth.AuthUI(firebase.auth())).start("#firebaseui-auth-container", config);
 };
 
-function profile() {
+function elcreativeAuthProfile () {
   firebase.auth().onAuthStateChanged(function(db) {
     var settings;
     var controller;
@@ -39,7 +39,7 @@ function profile() {
 
       n = '<div class="auth_avatar"><span class="lazyload shimmer" data-src="' + db.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + db.displayName + '</div><div class="auth_email">' + db.email + "</div></div>";
 
-      document.querySelector(".__profile_container").classList.remove("__loading"), document.querySelector(".__profile_container").innerHTML = n;
+      document.querySelector(".auth_profile_container").classList.remove("loading"), document.querySelector(".auth_profile_container").innerHTML = n;
 
       
 
