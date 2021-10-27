@@ -33,7 +33,7 @@ function profile() {
         var t, a, n;
         e ? (document.getElementById("logout").onclick = function() {
             firebase.auth().signOut()
-        }, n = "", t = (a = firebase.database().ref(e.displayName)).child("Posts"), a = a.child("Files"), n = '<div class="__avatar"><img src="' + e.photoURL + '"/></div><div class="__info"><div class="__name"><span>' + e.displayName + '</span></div><span></span><span class="__email">' + e.email + "</span></div></div>", var profileContainer=document.querySelector(".__profile_container"); profileContainer.classList.remove("__loading"); profileContainer.appendChild(n).querySelector(".__loader").remove(), t.limitToLast(5).once("value", function(e) {
+        }, n = "", t = (a = firebase.database().ref(e.displayName)).child("Posts"), a = a.child("Files"), n = '<div class="__avatar"><img src="' + e.photoURL + '"/></div><div class="__info"><div class="__name"><span>' + e.displayName + '</span></div><span></span><span class="__email">' + e.email + "</span></div></div>", document.querySelector(".__profile_container").classList.remove("__loading"); document.querySelector(".__profile_container").appendChild(n).querySelector(".__loader").remove(), t.limitToLast(5).once("value", function(e) {
             var t = "";
             e.forEach(function(e) {
                 entry = e.val(), t = '<div class="__article"><a href="my-posts.html?id=' + e.getKey() + '" title="' + entry.title + '"><div class="panel-heading">' + excerpt(entry.title, 140) + '</div><div class="panel-body"><small>' + datetimeFormat(entry.updatedAt) + '</small></div></a><small class="' + entry.status + '">' + entry.status + "</small></div>" + t
