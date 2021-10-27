@@ -20,6 +20,7 @@ function elcreativeAuthProfile () {
     var settings;
     var controller;
     var profileContent;
+    var postContent;
     if (rtdb) {
       document.getElementById("auth_logout").onclick = function() {
         firebase.auth().signOut();
@@ -29,6 +30,11 @@ function elcreativeAuthProfile () {
       profileContent = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + rtdb.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + rtdb.displayName + '</div><div class="auth_email">' + rtdb.email + "</div></div></div>";
 
       document.querySelector(".auth_profile_container").classList.remove("loading"), document.querySelector(".auth_profile_container").innerHTML = profileContent;
+
+      postContent = "";
+      postContent = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + rtdb.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + rtdb.displayName + '</div><div class="auth_email">' + rtdb.email + "</div></div></div>";
+
+      document.querySelector(".auth_post_container").classList.remove("loading"), document.querySelector(".auth_post_container").innerHTML = postContent;
 
       var refUsers = firebase.database().ref().child('Users/' + rtdb.uid);
       refUsers.set({
