@@ -26,20 +26,15 @@ function elcreativeAuthProfile () {
         localStorage.removeItem("auth_image")
       };
       profileContent = "";
-      settings = (controller = firebase.database().ref(rtdb.displayName)).child("Posts");
-      controller = controller.child("Files");
-
       profileContent = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + rtdb.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + rtdb.displayName + '</div><div class="auth_email">' + rtdb.email + "</div></div></div>";
 
       document.querySelector(".auth_profile_container").classList.remove("loading"), document.querySelector(".auth_profile_container").innerHTML = profileContent;
 
-      rtdb = {}
-      var refUsers = firebase.database().ref("Userz");
-      var refAuthor = refUsers.child(rtdb.displayName);
-      refAuthor.push(rtdb)
-
+      var refUsers = firebase.database().ref().child('Users/' + rtdb.displayName);
+      refUsers.set({username: rtdb.displayName, photoURL: rtdb.photoURL});
       
-
+      // settings = (controller = firebase.database().ref(rtdb.displayName)).child("Posts");
+      // controller = controller.child("Files");
       // settings.limitToLast(5).once("value", function(wrappersTemplates) {
       //   var out = "";
       //   wrappersTemplates.forEach(function($s) {
