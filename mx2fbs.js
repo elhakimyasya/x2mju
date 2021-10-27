@@ -7,7 +7,7 @@ var config = {
 
 function login() {
     firebase.auth().onAuthStateChanged(function(e) {
-        e && (window.location.href = "my-profile.html")
+        e && (window.location.href = authProfilePage)
     });
     var e = {
         signInSuccessUrl: !1,
