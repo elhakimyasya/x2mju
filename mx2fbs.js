@@ -33,8 +33,10 @@ function elcreativeAuthProfile () {
       var refUsers = firebase.database().ref().child('Users/' + rtdb.displayName);
       refUsers.set({
         userData : {
+          userEmail: rtdb.email,
           userName: rtdb.displayName,
           userPhotoUrl: rtdb.photoURL,
+          userPhone: rtdb.phoneNumber,
           userUID: rtdb.uid
         }
       });
