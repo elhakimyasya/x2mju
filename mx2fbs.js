@@ -41,7 +41,7 @@ function elcreativeAuthProfile () {
         var postContent;
         postItem.forEach(function($s) {
           entry = $s.val();
-          postContent = '<div class="auth_article"><a href="' + authUserPostPage + '?id=' + $s.getKey() + '" title="' + entry.title + '">' + entry.title + '</a></div>' + postContent;
+          postContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + $s.getKey() + '" title="' + entry.title + '">' + excerpt(entry.title, 140) + '</a><small>' + datetimeFormat(entry.updated) + '</small></div><div class="article_status"></div></div>';
         });
 
         document.querySelector(".tab_panel_post").classList.remove("loading"), document.querySelector(".tab_panel_post").innerHTML = postContent;
@@ -50,6 +50,18 @@ function elcreativeAuthProfile () {
       window.location.href = authLoginPage;
     }
   });
+};
+
+function datetimeFormat(e) {
+  return (e = new Date(e)).getDate() + " " + "January February March April May June July August September October November December".split(" ")[e.getMonth()] + " " + pad2Digit(e.getFullYear())
+};
+
+function pad2Digit(e) {
+  return ("0" + e.toString()).slice(-4)
+};
+
+function excerpt(e, t) {
+  return e = strip(e), (e = $.trim(e)).length > t && (e = e.substring(0, t - 3) + "…"), e
 };
 
 firebase.initializeApp(firebaseConfig);
