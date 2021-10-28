@@ -69,7 +69,7 @@ function elcreativeAuthPost() {
           if (postEntry) {
             postEntry["updatedAt-formatted"] = datetimeFormat(postEntry.update);
             document.querySelector("[data-bind]").forEach(function() {
-              this.innerHTML = postEntry[this.data("bimd")];
+              this.innerHTML = postEntry[this.data("bind")];
             })
 
             document.querySelector(".Blog .post_title").innerText = postEntry.title;
