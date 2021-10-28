@@ -64,4 +64,9 @@ function excerpt(e, t) {
   return e = strip(e), (e = $.trim(e)).length > t && (e = e.substring(0, t - 3) + "…"), e
 };
 
+function strip(e) {
+  var t = document.createElement("DIV");
+  return t.innerHTML = e, t.textContent || t.innerText || ""
+};
+
 firebase.initializeApp(firebaseConfig);
