@@ -42,9 +42,9 @@ function elcreativeAuthProfile () {
         var postContent;
         postItem.forEach(function($s) {
           var entry = $s.val();
-          postContent = '<div class="__article"><a href="my-posts.html?id=' + $s.getKey() + '" title="' + entry.title + '"><div class="panel-heading">' + entry.title + '</div></a></div>' + postContent;
+          postContent = '<div class="__article"><a href="my-posts.html?id=' + $s.getKey() + '" title="' + entry.title + '">' + entry.title + '</a></div>';
         });
-        
+
         document.querySelector(".tab_panel_post").classList.remove("loading"), document.querySelector(".tab_panel_post").innerHTML = postContent;
       });
     } else {
