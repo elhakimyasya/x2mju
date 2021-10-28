@@ -41,7 +41,7 @@ function elcreativeAuthProfile () {
         var postContent;
         postItem.forEach(function($s) {
           entry = $s.val();
-          postContent = '<div class="__article"><a href="my-posts.html?id=' + $s.getKey() + '" title="' + entry.title + '">' + entry.title + '</a></div>' + postContent;
+          postContent = '<div class="auth_article"><a href="' + authUserPostPage + '?id=' + $s.getKey() + '" title="' + entry.title + '">' + entry.title + '</a></div>' + postContent;
         });
 
         document.querySelector(".tab_panel_post").classList.remove("loading"), document.querySelector(".tab_panel_post").innerHTML = postContent;
