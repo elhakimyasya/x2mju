@@ -41,7 +41,7 @@ function elcreativeAuthProfile () {
         var postContent;
         postItem.forEach(function($s) {
           entry = $s.val();
-          postContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + $s.getKey() + '" title="' + entry.title + '">' + excerpt(entry.title, 140) + '</a><small>' + datetimeFormat(entry.updated) + '</small></div><div class="article_status"></div></div>';
+          postContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + $s.getKey() + '" title="' + entry.title + '">' + entry.title + '</a><small>' + datetimeFormat(entry.updated) + '</small></div><div class="article_status"></div></div>';
         });
 
         document.querySelector(".tab_panel_post").classList.remove("loading"), document.querySelector(".tab_panel_post").innerHTML = postContent;
@@ -58,10 +58,6 @@ function datetimeFormat(e) {
 
 function pad2Digit(e) {
   return ("0" + e.toString()).slice(-4)
-};
-
-function excerpt(e, t) {
-  return e = strip(e), (e = $.trim(e)).length > t && (e = e.substring(0, t - 3) + "…"), e
 };
 
 function strip(e) {
