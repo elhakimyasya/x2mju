@@ -58,8 +58,8 @@ function elcreativeAuthPost() {
     var postObject;
     var postBoolean;
     var postRef;
-    
-   
+
+
     if (database) {
       if (postId = (postId = "id", postObject = {}, window.location.href.split("?").pop().split("&").map(function(url) {
         url = url.split("=");
@@ -73,7 +73,7 @@ function elcreativeAuthPost() {
             postData["updatedAt-formatted"] = datetimeFormat(postData.updatedAt);
             var postContent = document.querySelector(".panel_content");
             postContent.innerHTML = postData.content;
-            
+
             if (!postBoolean) {
               postBoolean = true;
               postRef.child("views").transaction(function(count) {
@@ -83,21 +83,22 @@ function elcreativeAuthPost() {
 
             document.querySelector(".Blog .post_title").innerText = postData.title;
           } else {
-            // window.location.href = "index.html";
+            window.location.href = authUserPostListPage;
           }
         });
-        // $("#update").attr("href", "update-post.html?id=" + postId);
-        // $("#delete").click(function() {
-        //   postRef.remove();
-        // });
+
+        document.getElementById('update').setAttribute("href", "update-post.html?id=" + postId);
+        document.getElementById("delete").addEventListener("click", function() {
+          postRef.remove()
+        })
       } else {
-        // window.location.href = "index.html";
+        window.location.href = authUserPostListPage;
       }
     } else {
       window.location.href = authLoginPage;
     }
   });
-}
+};
 
 function datetimeFormat(e) {
   return (e = new Date(e)).getDate() + " " + "January February March April May June July August September October November December".split(" ")[e.getMonth()] + " " + pad2Digit(e.getFullYear())
