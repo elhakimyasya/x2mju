@@ -40,7 +40,7 @@ function elcreativeAuthProfile () {
       refPosts.limitToLast(5).once("value", function(postItem) {
         var postContent;
         postItem.forEach(function($s) {
-          var entry = $s.val();
+          entry = $s.val();
           postContent = '<div class="__article"><a href="my-posts.html?id=' + $s.getKey() + '" title="' + entry.title + '">' + entry.title + '</a></div>' + postContent;
         });
 
