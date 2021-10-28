@@ -52,6 +52,44 @@ function elcreativeAuthProfile () {
   });
 };
 
+function elcreativeAuthPost() {
+  firebase.auth().onAuthStateChanged(function(database) {
+    var postId;
+    var postData;
+    var postRef;
+    
+    if (database) {
+      if (postId = (postId = "id", postData = {}, window.location.href.split("?").pop().split("&").map(function(url) {
+        url = url.split("=");
+        postData[url[0]] = url[1];
+      }), postId ? postData[postId] || null : postData)) {
+        postRef = (database = firebase.database().ref('Users/' + rtdb.uid)).child("userPost").child(postId);
+        postRef.on("value", function(data) {
+          var postEntry = data.val();
+          if (postEntry) {
+            postEntry["updatedAt-formatted"] = datetimeFormat(postEntry.update);
+            document.querySelector("[data-bind]").forEach(function() {
+              this.innerHTML = postEntry[this.data("bimd")];
+            })
+
+            document.querySelector(".Blog post_title").innerText == postEntry.title;
+          } else {
+            window.location.href = "index.html";
+          }
+        });
+        // $("#update").attr("href", "update-post.html?id=" + postId);
+        // $("#delete").click(function() {
+        //   postRef.remove();
+        // });
+      } else {
+        window.location.href = "index.html";
+      }
+    } else {
+      window.location.href = authLoginPage;
+    }
+  });
+};
+
 function datetimeFormat(e) {
   return (e = new Date(e)).getDate() + " " + "January February March April May June July August September October November December".split(" ")[e.getMonth()] + " " + pad2Digit(e.getFullYear())
 };
