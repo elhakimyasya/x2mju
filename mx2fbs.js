@@ -52,45 +52,6 @@ function elcreativeAuthProfile () {
   });
 };
 
-function elcreativeAuthPost() {
-  firebase.auth().onAuthStateChanged(function(rtdb) {
-    var postId;
-    var postBoolean;
-    var postRef;
-
-    var obj;
-    
-    if (rtdb) {
-      if (postId = (postId = "id", obj = {}, window.location.href.split("?").pop().split("&").map(function(param) {
-        param = param.split("=");
-        obj[param[0]] = param[1];
-      }), postId ? obj[postId] || null : obj)) {
-        postBoolean = false;
-        postRef = (rtdb = firebase.database().ref('Users/' + rtdb.uid)).child("userPost").child(postId);
-        postRef.on("value", function(postItem) {
-          var ret = postItem.val();
-          if (ret) {
-            ret["update-formatted"] = datetimeFormat(ret.updated);
-            document.querySelector(".Blog .post_title").textContent = ret.title;
-          } else {
-            window.location.href = "index.html";
-          }
-        });
-        document.getElementById("update").setAttribute("href", "update-post.html?id=" + postId);
-        document.getElementById("delete").addEventListener("click", function() {
-          postRef.remove();
-        })
-      } else {
-        alert("This entry id does not exist");
-        window.location.href = "index.html";
-      }
-    } else {
-      alert("Please login first");
-      window.location.href = "sign-in.html";
-    }
-  });
-} ;
-
 function datetimeFormat(e) {
   return (e = new Date(e)).getDate() + " " + "January February March April May June July August September October November December".split(" ")[e.getMonth()] + " " + pad2Digit(e.getFullYear())
 };
