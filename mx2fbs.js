@@ -44,7 +44,7 @@ function elcreativeAuthProfile () {
           postContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + $s.getKey() + '" title="' + entry.title + '">' + entry.title + '</a><small>' + datetimeFormat(entry.updated) + '</small></div><div class="article_action">Pending | Edit | Delete</div></div>' + postContent;
         });
 
-        document.querySelector(".auth_post_container").classList.remove("loading"), document.querySelector(".tab_panel_post").appendChild = postContent;
+        document.querySelector(".auth_post_container").classList.remove("loading"), document.querySelector(".tab_panel_post").innerHTML = postContent;
       });
     } else {
       window.location.href = authLoginPage;
