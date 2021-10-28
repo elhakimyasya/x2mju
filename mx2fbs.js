@@ -72,7 +72,7 @@ function elcreativeAuthPost() {
               this.innerHTML = postEntry[this.data("bimd")];
             })
 
-            document.querySelector(".Blog post_title").innerText == postEntry.title;
+            document.querySelector(".Blog .post_title").innerText == postEntry.title;
           } else {
             window.location.href = "index.html";
           }
