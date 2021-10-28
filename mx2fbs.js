@@ -7,6 +7,7 @@ function elcreativeAuthLogin() {
       localStorage.removeItem("auth_image")
     }
   });
+
   var config = {
     signInSuccessUrl : false,
     signInOptions : [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
@@ -17,8 +18,6 @@ function elcreativeAuthLogin() {
 
 function elcreativeAuthProfile () {
   firebase.auth().onAuthStateChanged(function(rtdb) {
-    var settings;
-    var controller;
     if (rtdb) {
       document.getElementById("auth_logout").onclick = function() {
         firebase.auth().signOut();
@@ -37,7 +36,7 @@ function elcreativeAuthProfile () {
         }
       });
 
-      var refPosts = (controller = firebase.database().ref().child('Users/' + rtdb.uid)).child("userPost");
+      var refPosts = firebase.database().ref().child('Users/' + rtdb.uid).child("userPost");
       refPosts.limitToLast(5).once("value", function(postItem) {
         var postContent;
         postItem.forEach(function($s) {
