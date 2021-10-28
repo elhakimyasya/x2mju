@@ -10,7 +10,7 @@ function elcreativeAuthLogin() {
 
   var config = {
     signInSuccessUrl : false,
-    signInOptions : [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+    signInOptions : [firebase.auth.GoogleAuthProvider.PROVIDER_ID, firebase.auth.EmailAuthProvider.PROVIDER_ID],
     tosUrl : false
   };
   (new firebaseui.auth.AuthUI(firebase.auth())).start("#firebaseui-auth-container", config);
@@ -38,13 +38,13 @@ function elcreativeAuthProfile () {
 
       var refPosts = firebase.database().ref().child('Users/' + rtdb.uid).child("userPost");
       refPosts.limitToLast(5).once("value", function(postItem) {
-        var postContent;
+        var postContent = "";
         postItem.forEach(function($s) {
           entry = $s.val();
           postContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + $s.getKey() + '" title="' + entry.title + '">' + entry.title + '</a><small>' + datetimeFormat(entry.updated) + '</small></div><div class="article_action">Pending | Edit | Delete</div></div>' + postContent;
         });
 
-        document.querySelector(".auth_post_container").classList.remove("loading"), document.querySelector(".tab_panel_post").prepend(postContent);
+        document.querySelector(".auth_post_container").classList.remove("loading"), document.querySelector(".tab_panel_post").appendChild = postContent;
       });
     } else {
       window.location.href = authLoginPage;
