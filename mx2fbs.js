@@ -85,17 +85,16 @@ function elcreativeAuthPost() {
             };
 
             document.querySelector(".Blog .post_title").innerText = postData.title;
-
-            document.getElementById("auth_post_delete").addEventListener("click", function() {
-              postRefDeleted.set(postData);
-              postRef.remove();
-            });
           } else {
             window.location.href = authProfilePage;
           }
         });
 
         document.getElementById('auth_post_update').setAttribute("href", "update-post.html?id=" + postId);
+        document.getElementById("auth_post_delete").addEventListener("click", function() {
+              postRefDeleted.set(postData);
+              postRef.remove();
+            });
       } else {
         window.location.href = authProfilePage;
       }
