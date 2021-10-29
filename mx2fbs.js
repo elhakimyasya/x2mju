@@ -111,10 +111,10 @@ function elcreativeAuthPostEdit() {
     
    
     if (database) {
-      if (postId = (postIds = "id", postObject = {}, window.location.href.split("?").pop().split("&").map(function(url) {
+      if (postId = (postId = "id", postObject = {}, window.location.href.split("?").pop().split("&").map(function(url) {
         url = url.split("=");
         postObject[url[0]] = url[1];
-      }), postIds ? postObject[postIds] || null : postObject)) {
+      }), postId ? postObject[postId] || null : postObject)) {
         (refPost = firebase.database().ref('Users/' + database.uid).child("userPost").child(postId)).once("value", function(postItem) {
           postItem = postItem.val();
 
