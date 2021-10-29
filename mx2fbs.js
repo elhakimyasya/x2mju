@@ -120,7 +120,7 @@ function elcreativeAuthPostEdit() {
 
           document.getElementById("auth_input_post_title").value = postItem.title;
           document.getElementById("auth_input_post_description").value = postItem.description;
-          document.getElementById("auth_input_post_labels").value = postItem.labels;
+          document.getElementById("auth_input_post_label").value = postItem.labels;
           document.getElementById("auth_input_post_content").value = postItem.content;
 
           tinymce.init({
@@ -180,31 +180,33 @@ function elcreativeAuthPostEdit() {
             }],
             extended_valid_elements : "img[src|loading=lazy|alt|title|width|height|align|onmouseover|onmouseout|name]",
             init_instance_callback : function() {
-              
+
             }
           });
         });
-        // $("#update_entry").submit(function(key) {
-        //   key.preventDefault();
-        //   var subwikiListsCache = {
-        //     '"' : "'",
-        //     mcetoc : "elcreative_toc"
-        //   };
-        //   key = tinymce.get("content").getContent().replace(/"|mcetoc/g, function(wikiId) {
-        //     return subwikiListsCache[wikiId];
-        //   });
-        //   /** @type {string} */
-        //   var json = unescape(key);
-        //   return refPost.transaction(function(o) {
-        //     return (o = o || {}).title = $('#update_entry [name="title"]').val(), o.description = $('#update_entry [name="description"]').val(), o.labels = $('#update_entry [name="labels"]').val(), o.content = json, o.updatedAt = (new Date).getTime(), o.author = database.email, o;
-        //   }).then(function() {
-        //     window.location.href = "my-posts.html?id=" + postId;
-        //   }).catch(function(bbls) {
-        //     alert(bbls);
-        //   }), false;
-        // });
+        document.getElementById("auth_post_update").addEventListener("submit", function(postContent) {
+          postContent.preventDefault();
+
+          var postToc = {
+            '"' : "'",
+            mcetoc : "elcreative_toc"
+          };
+
+          postContent = tinymce.get("content").getContent().replace(/"|mcetoc/g, function(tocId) {
+            return postToc[tocId];
+          };
+
+          var postContentUnescaped = unescape(key);
+          return refPost.transaction(function(postItem) {
+            return (postItem = postItem || {}).title = document.getElementById("auth_input_post_title").value, postItem.description = document.getElementById("auth_input_post_description").value, postItem.labels = document.getElementById("auth_input_post_label").value, postItem.content = postContentUnescaped, postItem.updated = (new Date).getTime(), postItem.author = database.displayName, postItem;
+          }).then(function() {
+            window.location.href = authUserPostPage + "?id=" + postId;
+          }).catch(function(error) {
+            console.log(error);
+          }), false
+        })
       } else {
-        // window.location.href = "create-posts.html";
+        window.location.href = "create-posts.html";
       }
     } else {
       window.location.href = authLoginPage;
