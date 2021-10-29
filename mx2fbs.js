@@ -1,8 +1,8 @@
 function elcreativeAuthLogin() {
-  firebase.auth().onAuthStateChanged(function(location) {
-    if (location) {
+  firebase.auth().onAuthStateChanged(function(database) {
+    if (database) {
       window.location.href = authProfilePage;
-      localStorage.setItem("auth_image", location.photoURL);
+      localStorage.setItem("auth_image", database.photoURL)
     } else {
       localStorage.removeItem("auth_image")
     }
@@ -13,35 +13,36 @@ function elcreativeAuthLogin() {
     signInOptions : [firebase.auth.GoogleAuthProvider.PROVIDER_ID], //, firebase.auth.FacebookAuthProvider.PROVIDER_ID, firebase.auth.GithubAuthProvider.PROVIDER_ID, firebase.auth.EmailAuthProvider.PROVIDER_ID
     tosUrl : false
   };
-  (new firebaseui.auth.AuthUI(firebase.auth())).start("#firebaseui-auth-container", config);
+
+  (new firebaseui.auth.AuthUI(firebase.auth())).start("#firebaseui-auth-container", config)
 };
 
 function elcreativeAuthProfile () {
-  firebase.auth().onAuthStateChanged(function(rtdb) {
-    if (rtdb) {
+  firebase.auth().onAuthStateChanged(function(database) {
+    if (database) {
       document.getElementById("auth_logout").onclick = function() {
         firebase.auth().signOut();
         localStorage.removeItem("auth_image")
       };
-      var profileContent = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + rtdb.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + rtdb.displayName + '</div><div class="auth_email">' + rtdb.email + "</div></div></div>";
-      document.querySelector(".auth_profile_container").innerHTML = profileContent;
 
-      var refUsers = firebase.database().ref().child('Users/' + rtdb.uid);
-      refUsers.update({
+      document.querySelector(".auth_profile_container").innerHTML = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + database.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + database.displayName + '</div><div class="auth_email">' + database.email + '</div></div></div>';
+
+      var refUser = firebase.database().ref().child('Users/' + database.uid);
+      refUser.update({
         userData : {
-          userEmail: rtdb.email,
-          userName: rtdb.displayName,
-          userPhotoUrl: rtdb.photoURL,
-          userUID: rtdb.uid
+          userEmail: database.email,
+          userName: database.displayName,
+          userPhotoUrl: database.photoURL,
+          userUID: database.uid
         }
       });
 
-      var refPosts = firebase.database().ref().child('Users/' + rtdb.uid).child("userPost");
-      refPosts.limitToLast(5).once("value", function(postItem) {
+      var refUserPost = firebase.database().ref().child('Users/' + database.uid).child("userPost");
+      refUserPost.limitToLast(5).once("value", function(postItem) {
         var postContent = "";
-        postItem.forEach(function($s) {
-          entry = $s.val();
-          postContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + $s.getKey() + '" title="' + entry.title + '">' + entry.title + '</a><small>' + entry.author + " | " + datetimeFormat(entry.updated) + '</small></div><div class="article_action"><small>Pending</small></div></div>' + postContent;
+        postItem.forEach(function(postId) {
+          database = postId.val();
+          postContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + postId.getKey() + '" title="' + database.title + '">' + database.title + '</a><small>' + database.author + " | " + datetimeFormat(database.updated) + '</small></div><div class="article_action"><small>Pending</small></div></div>' + postContent;
         });
 
         if (postContent !== "") {
@@ -60,7 +61,6 @@ function elcreativeAuthPost() {
     var postObject;
     var postBoolean;
     var postRef;
-
 
     if (database) {
       if (postId = (postId = "id", postObject = {}, window.location.href.split("?").pop().split("&").map(function(url) {
