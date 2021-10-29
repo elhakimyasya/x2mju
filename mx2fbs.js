@@ -194,7 +194,7 @@ function elcreativeAuthPostEdit() {
 
           postContent = tinymce.get("content").getContent().replace(/"|mcetoc/g, function(tocId) {
             return postToc[tocId];
-          };
+          });
 
           var postContentUnescaped = unescape(key);
           return refPost.transaction(function(postItem) {
