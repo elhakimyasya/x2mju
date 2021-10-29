@@ -66,6 +66,8 @@ function elcreativeAuthPost() {
         postObject[url[0]] = url[1];
       }), postId ? postObject[postId] || null : postObject)) {
         postBoolean = false;
+
+        postRefDeleted = (database = firebase.database().ref('Users/' + database.uid)).child("usedDeletedPost").child(postId);
         postRef = (database = firebase.database().ref('Users/' + database.uid)).child("userPost").child(postId);
         postRef.on("value", function(postItem) {
           var postData = postItem.val();
@@ -82,15 +84,17 @@ function elcreativeAuthPost() {
             };
 
             document.querySelector(".Blog .post_title").innerText = postData.title;
+
+            document.getElementById("auth_post_delete").addEventListener("click", function() {
+              postRefDeleted.set(postData);
+              postRef.remove();
+            });
           } else {
             window.location.href = authProfilePage;
           }
         });
 
         document.getElementById('auth_post_update').setAttribute("href", "update-post.html?id=" + postId);
-        document.getElementById("auth_post_delete").addEventListener("click", function() {
-          postRef.remove()
-        })
       } else {
         window.location.href = authProfilePage;
       }
