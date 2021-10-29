@@ -50,7 +50,11 @@ function elcreativeAuthProfile () {
         }
       });
     } else {
-      window.location.href = authLoginPage;
+      if (confirm('You need to login to access this page. Do you want to log in?')) {
+        window.location.href = authLoginPage;
+      } else {
+        window.location.href = "/";
+      }
     }
   });
 };
@@ -83,7 +87,11 @@ function elcreativeAuthPost() {
 
             document.querySelector(".Blog .post_title").innerText = postData.title;
           } else {
-            window.location.href = authProfilePage;
+            if (confirm('Sorry, this post has not been created or does not exist. Do you want to write it?')) {
+              window.location.href = "create-posts.html";
+            } else {
+              window.location.href = authProfilePage;
+            }
           }
         });
 
@@ -94,10 +102,18 @@ function elcreativeAuthPost() {
           } else {}
         })
       } else {
-        window.location.href = authProfilePage;
+        if (confirm('Sorry, this post has not been created or does not exist. Do you want to write it?')) {
+          window.location.href = "create-posts.html";
+        } else {
+          window.location.href = authProfilePage;
+        }
       }
     } else {
-      window.location.href = authLoginPage;
+      if (confirm('You need to login to access this page. Do you want to log in?')) {
+        window.location.href = authLoginPage;
+      } else {
+        window.location.href = "/";
+      }
     }
   });
 };
