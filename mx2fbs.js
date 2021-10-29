@@ -183,17 +183,17 @@ function elcreativeAuthPostEdit() {
             }
           });
         });
-        document.getElementById("auth_post_edit").addEventListener("submit", function(e) {
-          e.preventDefault();
+        document.getElementById("auth_post_edit").addEventListener("submit", function(postContent) {
+          postContent.preventDefault();
 
           var postResult = {
             '"' : "'",
             mcetoc : "elcreative_toc"
           };
-          e = tinymce.get("content").getContent().replace(/"|mcetoc/g, function(content) {
-            return postResult[content];
+          postContent = tinymce.get("content").getContent().replace(/"|mcetoc/g, function(x) {
+            return postResult[x];
           });
-          var postContentUnescaped = unescape(e);
+          var postContentUnescaped = unescape(postContent);
           return refPost.transaction(function(o) {
             return (o = o || {}).title = document.getElementById("auth_input_post_title").value, o.description = document.getElementById("auth_input_post_description").value, o.labels = document.getElementById("auth_input_post_label").value, o.content = postContentUnescaped, o.updated = (new Date).getTime(), o.author = database.displayName, o;
           }).then(function() {
