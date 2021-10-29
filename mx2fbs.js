@@ -186,7 +186,14 @@ function elcreativeAuthPostEdit() {
         document.getElementById("auth_post_edit").addEventListener("submit", function(e) {
           e.preventDefault();
 
-          var postContentUnescaped = unescape(document.getElementById("auth_input_post_content").value);
+          var postResult = {
+            '"' : "'",
+            mcetoc : "elcreative_toc"
+          };
+          e = tinymce.get("content").getContent().replace(/"|mcetoc/g, function(content) {
+            return postResult[content];
+          });
+          var postContentUnescaped = unescape(e);
           return refPost.transaction(function(o) {
             return (o = o || {}).title = document.getElementById("auth_input_post_title").value, o.description = document.getElementById("auth_input_post_description").value, o.labels = document.getElementById("auth_input_post_label").value, o.content = postContentUnescaped, o.updated = (new Date).getTime(), o.author = database.displayName, o;
           }).then(function() {
