@@ -10,7 +10,7 @@ function elcreativeAuthLogin() {
 
   var config = {
     signInSuccessUrl : false,
-    signInOptions : [firebase.auth.GoogleAuthProvider.PROVIDER_ID, firebase.auth.FacebookAuthProvider.PROVIDER_ID, firebase.auth.GithubAuthProvider.PROVIDER_ID, firebase.auth.EmailAuthProvider.PROVIDER_ID],
+    signInOptions : [firebase.auth.GoogleAuthProvider.PROVIDER_ID, firebase.auth.EmailAuthProvider.PROVIDER_ID], //, firebase.auth.FacebookAuthProvider.PROVIDER_ID, firebase.auth.GithubAuthProvider.PROVIDER_ID
     tosUrl : false
   };
   (new firebaseui.auth.AuthUI(firebase.auth())).start("#firebaseui-auth-container", config);
