@@ -183,7 +183,7 @@ function elcreativeAuthPostEdit() {
             }
           });
         });
-        document.getElementById("auth_post_update").addEventListener("click", function(postContent) {
+        document.getElementById("auth_post_edit").addEventListener("submit", function(postContent) {
           postContent.preventDefault();
 
           var postContentUnescaped = unescape(postContent);
