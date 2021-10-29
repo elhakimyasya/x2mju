@@ -87,8 +87,8 @@ function elcreativeAuthPost() {
           }
         });
 
-        document.getElementById('update').setAttribute("href", "update-post.html?id=" + postId);
-        document.getElementById("delete").addEventListener("click", function() {
+        document.getElementById('auth_post_update').setAttribute("href", "update-post.html?id=" + postId);
+        document.getElementById("auth_post_delete").addEventListener("click", function() {
           postRef.remove()
         })
       } else {
