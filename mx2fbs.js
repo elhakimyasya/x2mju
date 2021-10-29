@@ -83,7 +83,7 @@ function elcreativeAuthPost() {
 
             document.querySelector(".Blog .post_title").innerText = postData.title;
           } else {
-            window.location.href = authUserPostListPage;
+            window.location.href = authProfilePage;
           }
         });
 
@@ -92,7 +92,7 @@ function elcreativeAuthPost() {
           postRef.remove()
         })
       } else {
-        window.location.href = authUserPostListPage;
+        window.location.href = authProfilePage;
       }
     } else {
       window.location.href = authLoginPage;
