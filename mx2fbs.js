@@ -42,7 +42,7 @@ function elcreativeAuthProfile () {
         var postContent = "";
         postItem.forEach(function(postId) {
           database = postId.val();
-          postContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + postId.getKey() + '" title="' + database.title + '">' + database.title + '</a><small>' + database.author + " - " + datetimeFormat(database.updated) + '<a href="' + authEditPost + "?id=" + postId.getKey() + '">Edit</a><a href="javascript:;" onclick="' + postId.getKey().remove() + '">Delete</a></small></div><div class="article_action"><small>Pending</small></div></div>' + postContent;
+          postContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + postId.getKey() + '" title="' + database.title + '">' + database.title + '</a><small>' + database.author + " - " + datetimeFormat(database.updated) + '<a href="' + authEditPost + "?id=" + postId.getKey() + '">Edit</a><a href="javascript:;" onclick="' + postId.remove() + '">Delete</a></small></div><div class="article_action"><small>Pending</small></div></div>' + postContent;
         });
 
         if (postContent !== "") {
