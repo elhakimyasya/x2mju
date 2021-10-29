@@ -190,7 +190,7 @@ function elcreativeAuthPostEdit() {
             '"' : "'",
             mcetoc : "elcreative_toc"
           };
-          postContent = tinymce.get("content").getContent().replace(/"|mcetoc/g, function(x) {
+          postContent = tinymce.get("auth_input_post_content").getContent().replace(/"|mcetoc/g, function(x) {
             return postResult[x];
           });
           var postContentUnescaped = unescape(postContent);
