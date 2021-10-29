@@ -58,6 +58,7 @@ function elcreativeAuthPost() {
     var postObject;
     var postBoolean;
     var postRef;
+    var postRefDeleted;
 
 
     if (database) {
