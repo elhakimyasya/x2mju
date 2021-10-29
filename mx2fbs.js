@@ -188,7 +188,7 @@ function elcreativeAuthPostEdit() {
 
           var postContentUnescaped = unescape(postContent);
           return refPost.transaction(function(o) {
-            return (o = o || {}).title = document.getElementById("auth_input_post_title").value, o.description = document.getElementById("auth_input_post_description").value, o.labels = document.getElementById("auth_input_post_label").value, o.content = postContentUnescaped, o.updatedAt = (new Date).getTime(), o.author = database.displayName, o;
+            return (o = o || {}).title = document.getElementById("auth_input_post_title").value, o.description = document.getElementById("auth_input_post_description").value, o.labels = document.getElementById("auth_input_post_label").value, o.content = postContentUnescaped, o.updated = (new Date).getTime(), o.author = database.displayName, o;
           }).then(function() {
             window.location.href = "my-posts.html?id=" + postId;
           }).catch(function(bbls) {
