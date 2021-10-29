@@ -38,7 +38,7 @@ function elcreativeAuthProfile () {
       });
 
       var refUserPost = firebase.database().ref().child('Users/' + database.uid).child("userPost");
-      refUserPost.limitToLast(5).once("value", function(postItem) {
+      refUserPost.limitToLast(6).once("value", function(postItem) {
         var postContent = "";
         postItem.forEach(function(postId) {
           database = postId.val();
@@ -60,7 +60,7 @@ function elcreativeAuthPost() {
     var postId;
     var postObject;
     var postBoolean;
-    var postRef;
+    var refPost;
 
     if (database) {
       if (postId = (postId = "id", postObject = {}, window.location.href.split("?").pop().split("&").map(function(url) {
@@ -68,18 +68,16 @@ function elcreativeAuthPost() {
         postObject[url[0]] = url[1];
       }), postId ? postObject[postId] || null : postObject)) {
         postBoolean = false;
-        postRef = (database = firebase.database().ref('Users/' + database.uid)).child("userPost").child(postId);
-        postRef.on("value", function(postItem) {
+        refPost = (database = firebase.database().ref('Users/' + database.uid)).child("userPost").child(postId);
+        refPost.on("value", function(postItem) {
           var postData = postItem.val();
           if (postData) {
-            postData["updatedAt-formatted"] = datetimeFormat(postData.updatedAt);
-            var postContent = document.querySelector(".panel_content");
-            postContent.innerHTML = postData.content;
+            document.querySelector(".panel_content").innerHTML = postData.content;
 
             if (!postBoolean) {
               postBoolean = true;
-              postRef.child("views").transaction(function(count) {
-                return (count || 0) + 1;
+              refPost.child("views").transaction(function(count) {
+                return (count || 0) + 1
               });
             };
 
@@ -89,12 +87,10 @@ function elcreativeAuthPost() {
           }
         });
 
-        document.getElementById('auth_post_update').setAttribute("href", "update-post.html?id=" + postId);
+        document.getElementById('auth_post_update').setAttribute("href", authEditPost + "?id=" + postId);
         document.getElementById("auth_post_delete").addEventListener("click", function() {
           if (confirm('Are you sure you want to delete this post?')) {
-            postRef.remove()
-          } else {
-
+            refPost.remove()
           }
         })
       } else {
