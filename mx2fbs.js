@@ -58,7 +58,6 @@ function elcreativeAuthPost() {
     var postObject;
     var postBoolean;
     var postRef;
-    var postRefDeleted;
 
 
     if (database) {
@@ -67,8 +66,6 @@ function elcreativeAuthPost() {
         postObject[url[0]] = url[1];
       }), postId ? postObject[postId] || null : postObject)) {
         postBoolean = false;
-
-        postRefDeleted = (database = firebase.database().ref('Users/' + database.uid)).child("usedDeletedPost").child(postId);
         postRef = (database = firebase.database().ref('Users/' + database.uid)).child("userPost").child(postId);
         postRef.on("value", function(postItem) {
           var postData = postItem.val();
@@ -92,9 +89,8 @@ function elcreativeAuthPost() {
 
         document.getElementById('auth_post_update').setAttribute("href", "update-post.html?id=" + postId);
         document.getElementById("auth_post_delete").addEventListener("click", function() {
-              postRefDeleted.set(postData);
-              postRef.remove();
-            });
+          postRef.remove()
+        })
       } else {
         window.location.href = authProfilePage;
       }
