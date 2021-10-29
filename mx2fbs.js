@@ -116,13 +116,13 @@ function elcreativeAuthPostEdit() {
       }), postId ? postObject[postId] || null : postObject)) {
         postBoolean = false;
         refPost = (firebase.database().ref('Users/' + database.uid)).child("userPost").child(postId);
-        refPost.once("value", function(postItem) {
-          postItem = postItem.val();
+        refPost.on("value", function(postItem) {
+          var postData = postItem.val();
 
-          document.getElementById("auth_input_post_title").value = postItem.title;
-          document.getElementById("auth_input_post_description").value = postItem.description;
-          document.getElementById("auth_input_post_label").value = postItem.labels;
-          document.getElementById("auth_input_post_content").value = postItem.content;
+          document.getElementById("auth_input_post_title").value = postData.title;
+          document.getElementById("auth_input_post_description").value = postData.description;
+          document.getElementById("auth_input_post_label").value = postData.labels;
+          document.getElementById("auth_input_post_content").value = postData.content;
 
           tinymce.init({
             selector : "textarea",
@@ -197,7 +197,7 @@ function elcreativeAuthPostEdit() {
           //   return postToc[tocId];
           // });
 
-          var postContentUnescaped = unescape(key);
+          var postContentUnescaped = unescape(postContent);
           return refPost.transaction(function(postItem) {
             return (postItem = postItem || {}).title = document.getElementById("auth_input_post_title").value, postItem.description = document.getElementById("auth_input_post_description").value, postItem.labels = document.getElementById("auth_input_post_label").value, postItem.content = postContentUnescaped, postItem.updated = (new Date).getTime(), postItem.author = database.displayName, postItem;
           }).then(function() {
