@@ -187,14 +187,14 @@ function elcreativeAuthPostEdit() {
         document.getElementById("auth_post_update").addEventListener("submit", function(postContent) {
           postContent.preventDefault();
 
-          var postToc = {
-            '"' : "'",
-            mcetoc : "elcreative_toc"
-          };
+          // var postToc = {
+          //   '"' : "'",
+          //   mcetoc : "elcreative_toc"
+          // };
 
-          postContent = tinymce.get("content").getContent().replace(/"|mcetoc/g, function(tocId) {
-            return postToc[tocId];
-          });
+          // postContent = tinymce.get("content").getContent().replace(/"|mcetoc/g, function(tocId) {
+          //   return postToc[tocId];
+          // });
 
           var postContentUnescaped = unescape(key);
           return refPost.transaction(function(postItem) {
