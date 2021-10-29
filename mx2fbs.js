@@ -183,7 +183,11 @@ function elcreativeAuthPostEdit() {
               }
             });
           } else {
-            window.location.href = "create-posts.html";
+            if (confirm('Sorry, this post has not been created or does not exist. Do you want to write it?')) {
+              window.location.href = "create-posts.html";
+            } else {
+              window.location.href = authProfilePage;
+            }
           }
         });
         document.getElementById("auth_post_edit").addEventListener("submit", function(postContent) {
@@ -200,17 +204,24 @@ function elcreativeAuthPostEdit() {
           return refPost.transaction(function(o) {
             return (o = o || {}).title = document.getElementById("auth_input_post_title").value, o.description = document.getElementById("auth_input_post_description").value, o.labels = document.getElementById("auth_input_post_label").value, o.content = postContentUnescaped, o.updated = (new Date).getTime(), o.author = database.displayName, o;
           }).then(function() {
-            window.location.href = "my-posts.html?id=" + postId;
+            window.location.href = authUserPostPage + "?id=" + postId;
           }).catch(function(bbls) {
-            alert(bbls);
+            console.log(bbls);
           }), false;
         })
       } else {
-        window.location.href = "create-posts.html";
+        if (confirm('Sorry, this post has not been created or does not exist. Do you want to write it?')) {
+          window.location.href = "create-posts.html";
+        } else {
+          window.location.href = authProfilePage;
+        }
       }
     } else {
-      alert("Please log-in");
-      window.location.href = "sign-in.html";
+      if (confirm('You need to login to access this page. Do you want to log in?')) {
+        window.location.href = authLoginPage;
+      } else {
+        window.location.href = "/";
+      }
     }
   });
 };
