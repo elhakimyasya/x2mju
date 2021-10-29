@@ -67,7 +67,7 @@ function elcreativeAuthPost() {
       }), postId ? postObject[postId] || null : postObject)) {
         postBoolean = false;
         postRef = (database = firebase.database().ref('Users/' + database.uid)).child("userPost").child(postId);
-        var postRefDeleted = firebase.database().ref().child('Users/' + database.uid + 'userPostDeleted').child(postId);
+        var postRefDeleted = firebase.database().ref().child('Users/' + database.uid + '/userPostDeleted').child(postId);
         postRef.on("value", function(postItem) {
           var postData = postItem.val();
           if (postData) {
