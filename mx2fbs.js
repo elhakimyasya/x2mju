@@ -105,17 +105,17 @@ function elcreativeAuthPost() {
 function elcreativeAuthPostEdit() {
   firebase.auth().onAuthStateChanged(function(database) {
     var postId;
-    var postIds;
     var postObject;
+    var postBoolean;
     var refPost;
-    
-   
+
     if (database) {
       if (postId = (postId = "id", postObject = {}, window.location.href.split("?").pop().split("&").map(function(url) {
         url = url.split("=");
         postObject[url[0]] = url[1];
       }), postId ? postObject[postId] || null : postObject)) {
-        (refPost = (firebase.database().ref('Users/' + database.uid)).child("userPost").child(postId));
+        postBoolean = false;
+        refPost = (firebase.database().ref('Users/' + database.uid)).child("userPost").child(postId);
         refPost.once("value", function(postItem) {
           postItem = postItem.val();
 
