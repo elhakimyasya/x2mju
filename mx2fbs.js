@@ -10,7 +10,7 @@ function elcreativeAuthLogin() {
 
   var config = {
     signInSuccessUrl : false,
-    signInOptions : [firebase.auth.GoogleAuthProvider.PROVIDER_ID, firebase.auth.EmailAuthProvider.PROVIDER_ID], //, firebase.auth.FacebookAuthProvider.PROVIDER_ID, firebase.auth.GithubAuthProvider.PROVIDER_ID
+    signInOptions : [firebase.auth.GoogleAuthProvider.PROVIDER_ID], //, firebase.auth.FacebookAuthProvider.PROVIDER_ID, firebase.auth.GithubAuthProvider.PROVIDER_ID, firebase.auth.EmailAuthProvider.PROVIDER_ID
     tosUrl : false
   };
   (new firebaseui.auth.AuthUI(firebase.auth())).start("#firebaseui-auth-container", config);
@@ -24,7 +24,7 @@ function elcreativeAuthProfile () {
         localStorage.removeItem("auth_image")
       };
       var profileContent = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + rtdb.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + rtdb.displayName + '</div><div class="auth_email">' + rtdb.email + "</div></div></div>";
-      document.querySelector(".auth_profile_container").classList.remove("loading"), document.querySelector(".auth_profile_container").innerHTML = profileContent, document.querySelector(".elcreative_tab").classList.remove("loading");
+      document.querySelector(".auth_profile_container").innerHTML = profileContent;
 
       var refUsers = firebase.database().ref().child('Users/' + rtdb.uid);
       refUsers.update({
@@ -44,7 +44,9 @@ function elcreativeAuthProfile () {
           postContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + $s.getKey() + '" title="' + entry.title + '">' + entry.title + '</a><small>' + datetimeFormat(entry.updated) + '</small></div><div class="article_action"><small>Pending</small></div></div>' + postContent;
         });
 
-        document.querySelector(".auth_post_container").classList.remove("loading"), document.querySelector(".tab_panel_post").innerHTML = postContent;
+        if (postContent !== "") {
+        document.querySelector(".tab_panel_post").innerHTML = postContent;
+        }
       });
     } else {
       window.location.href = authLoginPage;
