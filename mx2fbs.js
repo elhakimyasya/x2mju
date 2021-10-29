@@ -67,7 +67,6 @@ function elcreativeAuthPost() {
       }), postId ? postObject[postId] || null : postObject)) {
         postBoolean = false;
         postRef = (database = firebase.database().ref('Users/' + database.uid)).child("userPost").child(postId);
-        var postRefDeleted = firebase.database().ref().child('Users/' + database.uid + '/userPostDeleted').child(postId);
         postRef.on("value", function(postItem) {
           var postData = postItem.val();
           if (postData) {
@@ -83,18 +82,19 @@ function elcreativeAuthPost() {
             };
 
             document.querySelector(".Blog .post_title").innerText = postData.title;
-
-            document.getElementById("auth_post_delete").addEventListener("click", function() {
-              postRefDeleted.set(postRef);
-              postRef.remove()
-            })
           } else {
             window.location.href = authProfilePage;
           }
         });
 
         document.getElementById('auth_post_update').setAttribute("href", "update-post.html?id=" + postId);
-        
+        document.getElementById("auth_post_delete").addEventListener("click", function() {
+          if (confirm('Are you sure you want to delete this post?')) {
+            postRef.remove()
+          } else {
+
+          }
+        })
       } else {
         window.location.href = authProfilePage;
       }
