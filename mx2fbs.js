@@ -41,11 +41,11 @@ function elcreativeAuthProfile () {
         var postContent = "";
         postItem.forEach(function($s) {
           entry = $s.val();
-          postContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + $s.getKey() + '" title="' + entry.title + '">' + entry.title + '</a><small>' + datetimeFormat(entry.updated) + '</small></div><div class="article_action"><small>Pending</small></div></div>' + postContent;
+          postContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + $s.getKey() + '" title="' + entry.title + '">' + entry.title + '</a><small>' + entry.author + " | " + datetimeFormat(entry.updated) + '</small></div><div class="article_action"><small>Pending</small></div></div>' + postContent;
         });
 
         if (postContent !== "") {
-        document.querySelector(".tab_panel_post").innerHTML = postContent;
+          document.querySelector(".tab_panel_post").innerHTML = postContent;
         }
       });
     } else {
