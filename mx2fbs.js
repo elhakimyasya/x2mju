@@ -91,7 +91,7 @@ function elcreativeAuthPost() {
         document.getElementById("auth_post_delete").addEventListener("click", function() {
           if (confirm('Are you sure you want to delete this post?')) {
             refPost.remove()
-          }
+          } else {}
         })
       } else {
         window.location.href = authProfilePage;
