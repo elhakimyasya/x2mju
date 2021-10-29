@@ -183,7 +183,7 @@ function elcreativeAuthPostEdit() {
             }
           });
         });
-        document.getElementById("auth_post_update").addEventListener("submit", function(postContent) {
+        document.getElementById("auth_post_update").addEventListener("click", function(postContent) {
           postContent.preventDefault();
 
           var postContentUnescaped = unescape(postContent);
@@ -203,7 +203,7 @@ function elcreativeAuthPostEdit() {
       window.location.href = "sign-in.html";
     }
   });
-}
+};
 
 function datetimeFormat(e) {
   return (e = new Date(e)).getDate() + " " + "January February March April May June July August September October November December".split(" ")[e.getMonth()] + " " + pad2Digit(e.getFullYear())
