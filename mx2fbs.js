@@ -115,7 +115,8 @@ function elcreativeAuthPostEdit() {
         url = url.split("=");
         postObject[url[0]] = url[1];
       }), postId ? postObject[postId] || null : postObject)) {
-        (refPost = firebase.database().ref('Users/' + database.uid).child("userPost").child(postId)).once("value", function(postItem) {
+        (refPost = (firebase.database().ref('Users/' + database.uid)).child("userPost").child(postId));
+        refPost.once("value", function(postItem) {
           postItem = postItem.val();
 
           document.getElementById("auth_input_post_title").value = postItem.title;
