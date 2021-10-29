@@ -10,11 +10,11 @@ function elcreativeAuthLogin() {
 
   var config = {
     signInSuccessUrl : false,
-    signInOptions : [firebase.auth.GoogleAuthProvider.PROVIDER_ID], //, firebase.auth.FacebookAuthProvider.PROVIDER_ID, firebase.auth.GithubAuthProvider.PROVIDER_ID, firebase.auth.EmailAuthProvider.PROVIDER_ID
-    tosUrl : false
-  };
+signInOptions : [firebase.auth.GoogleAuthProvider.PROVIDER_ID], //, firebase.auth.FacebookAuthProvider.PROVIDER_ID, firebase.auth.GithubAuthProvider.PROVIDER_ID, firebase.auth.EmailAuthProvider.PROVIDER_ID
+tosUrl : false
+};
 
-  (new firebaseui.auth.AuthUI(firebase.auth())).start("#firebaseui-auth-container", config)
+(new firebaseui.auth.AuthUI(firebase.auth())).start("#firebaseui-auth-container", config)
 };
 
 function elcreativeAuthProfile () {
@@ -102,27 +102,25 @@ function elcreativeAuthPost() {
   });
 };
 
+
 function elcreativeAuthPostEdit() {
   firebase.auth().onAuthStateChanged(function(database) {
     var postId;
-    var postObject;
-    var postBoolean;
     var refPost;
-
+    var postIds;
+    var postObject;
     if (database) {
-      if (postId = (postId = "id", postObject = {}, window.location.href.split("?").pop().split("&").map(function(url) {
-        url = url.split("=");
-        postObject[url[0]] = url[1];
-      }), postId ? postObject[postId] || null : postObject)) {
-        postBoolean = false;
-        refPost = (firebase.database().ref('Users/' + database.uid)).child("userPost").child(postId);
-        refPost.on("value", function(postItem) {
-          var postData = postItem.val();
+      if (postId = (postIds = "id", postObject = {}, window.location.href.split("?").pop().split("&").map(function(strings) {
+        strings = strings.split("=");
+        postObject[strings[0]] = strings[1];
+      }), postIds ? postObject[postIds] || null : postObject)) {
+        (refPost = firebase.database().ref('Users/' + database.uid).child("userPost").child(postId)).once("value", function(databases) {
+          databases = databases.val();
 
-          document.getElementById("auth_input_post_title").value = postData.title;
-          document.getElementById("auth_input_post_description").value = postData.description;
-          document.getElementById("auth_input_post_label").value = postData.labels;
-          document.getElementById("auth_input_post_content").value = postData.content;
+          document.getElementById("auth_input_post_title").value = databases.title;
+          document.getElementById("auth_input_post_description").value = databases.description;
+          document.getElementById("auth_input_post_label").value = databases.labels;
+          document.getElementById("auth_input_post_content").value = databases.content;
 
           tinymce.init({
             selector : "textarea",
@@ -180,40 +178,32 @@ function elcreativeAuthPostEdit() {
               value : "noopener noreferer nofollow"
             }],
             extended_valid_elements : "img[src|loading=lazy|alt|title|width|height|align|onmouseover|onmouseout|name]",
-            init_instance_callback : function() {
-
+            init_instance_callback : function(ed) {
+              
             }
           });
         });
         document.getElementById("auth_post_update").addEventListener("submit", function(postContent) {
           postContent.preventDefault();
 
-          // var postToc = {
-          //   '"' : "'",
-          //   mcetoc : "elcreative_toc"
-          // };
-
-          // postContent = tinymce.get("content").getContent().replace(/"|mcetoc/g, function(tocId) {
-          //   return postToc[tocId];
-          // });
-
           var postContentUnescaped = unescape(postContent);
-          return refPost.transaction(function(postItem) {
-            return (postItem = postItem || {}).title = document.getElementById("auth_input_post_title").value, postItem.description = document.getElementById("auth_input_post_description").value, postItem.labels = document.getElementById("auth_input_post_label").value, postItem.content = postContentUnescaped, postItem.updated = (new Date).getTime(), postItem.author = database.displayName, postItem;
+          return refPost.transaction(function(o) {
+            return (o = o || {}).title = document.getElementById("auth_input_post_title").value, o.description = document.getElementById("auth_input_post_description").value, o.labels = document.getElementById("auth_input_post_label").value, o.content = postContentUnescaped, o.updatedAt = (new Date).getTime(), o.author = database.displayName, o;
           }).then(function() {
-            window.location.href = authUserPostPage + "?id=" + postId;
-          }).catch(function(error) {
-            console.log(error);
-          }), false
+            window.location.href = "my-posts.html?id=" + postId;
+          }).catch(function(bbls) {
+            alert(bbls);
+          }), false;
         })
       } else {
         window.location.href = "create-posts.html";
       }
     } else {
-      window.location.href = authLoginPage;
+      alert("Please log-in");
+      window.location.href = "sign-in.html";
     }
   });
-};
+}
 
 function datetimeFormat(e) {
   return (e = new Date(e)).getDate() + " " + "January February March April May June July August September October November December".split(" ")[e.getMonth()] + " " + pad2Digit(e.getFullYear())
