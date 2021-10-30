@@ -305,8 +305,7 @@ function elcreativeAuthPostCreate() {
         }
       });
 
-      let form = document.querySelector("form");
-      form.addEventListener("submit", function(postContent) {
+      document.querySelector("auth_post_create").addEventListener("submit", function(postContent) {
         postContent.preventDefault();
 
         (postContent = {}).title = document.getElementById("auth_input_post_title").value;
@@ -330,10 +329,6 @@ function elcreativeAuthPostCreate() {
           console.log(z);
         }), false
       });
-
-      document.getElementById("auth_post_create").addEventListener("click", function () {
-        form.submit();
-      })
     } else {
       if (confirm('You need to login to access this page. Do you want to log in?')) {
         window.location.href = authLoginPage;
