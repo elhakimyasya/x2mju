@@ -38,7 +38,7 @@ function elcreativeAuthProfile () {
       });
 
       var refUserPost = firebase.database().ref().child('Users/' + database.uid).child("userPost");
-      refUserPost.limitToLast(3).once("value", function(postItem) {
+      refUserPost.once("value", function(postItem) {
         var postContent = "";
         postItem.forEach(function(postId) {
           database = postId.val();
@@ -331,7 +331,7 @@ function elcreativeAuthPostCreate() {
           console.log(error);
         }), false;
 
-        
+        functionSnackbar("Uploading…", 5000);
       });
     } else {
       if (confirm('You need to login to access this page. Do you want to log in?')) {
