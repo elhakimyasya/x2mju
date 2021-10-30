@@ -321,12 +321,12 @@ function elcreativeAuthPostCreate() {
         var refData = refUid.child("userData");
         var refPost = refUid.child("userPost");
 
-        return refData.child("userPoints").transaction(function(e) {
-          return (e || 0) + 10
-        }), refPost.push(postContent).then(function(y) {
-          window.location.href = authUserPostPage + "?id=" + y.getKey();
-        }).catch(function(z) {
-          console.log(z);
+        return refData.child("userPoints").transaction(function(points) {
+          return (points || 0) + 10
+        }), refPost.push(postContent).then(function(postId) {
+          window.location.href = authUserPostPage + "?id=" + postId.getKey();
+        }).catch(function(error) {
+          console.log(error);
         }), false
       });
     } else {
