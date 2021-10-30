@@ -307,6 +307,7 @@ function elcreativeAuthPostCreate() {
 
       document.getElementById("auth_post_create").addEventListener("submit", function(postContent) {
         postContent.preventDefault();
+
         (postContent = {}).title = document.getElementById("auth_input_post_title").value;
         postContent.description = document.getElementById("auth_input_post_description").value;
         postContent.labels = document.getElementById("auth_input_post_label").value;
@@ -320,7 +321,7 @@ function elcreativeAuthPostCreate() {
         refUid.push(postContent).then(function(y) {
           window.location.href = authUserPostPage + "?id=" + y.getKey();
         }).catch(function(z) {
-          console.error(z);
+          console.log(z);
         }), false
       });
     } else {
