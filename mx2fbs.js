@@ -302,7 +302,6 @@ function elcreativeAuthPostCreate() {
         }],
         extended_valid_elements : "img[src|loading=lazy|alt|title|width|height|align|onmouseover|onmouseout|name]",
         init_instance_callback : function(ed) {
-          $(".__loader").remove();
         }
       });
 
