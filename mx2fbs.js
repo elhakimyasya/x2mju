@@ -305,7 +305,7 @@ function elcreativeAuthPostCreate() {
         }
       });
 
-      document.getElementById("auth_post_create").addEventListener("click", function(postContent) {
+      document.getElementById("auth_post_create").addEventListener("submit", function(postContent) {
         postContent.preventDefault();
 
         (postContent = {}).title = document.getElementById("auth_input_post_title").value;
