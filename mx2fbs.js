@@ -306,6 +306,7 @@ function elcreativeAuthPostCreate() {
         postContent.preventDefault();
 
         document.getElementById("btn_create").remove();
+        functionSnackbar("Uploading…", 5000);
 
         (postContent = {}).title = document.getElementById("auth_input_post_title").value;
         postContent.description = document.getElementById("auth_input_post_description").value;
@@ -318,10 +319,10 @@ function elcreativeAuthPostCreate() {
         postContent.status = "Pending";
 
         var refUid = firebase.database().ref('Users/' + database.uid);
-        var refData = refUid.child("userData");
+        var refData = refUid.child("userData").child("userPoints");
         var refPost = refUid.child("userPost");
-
-        return refData.child("userPoints").transaction(function(points) {
+        
+        return refData.transaction(function(points) {
           return (points || 0) + 10
         }), refPost.push(postContent).then(function(postId) {
           window.location.href = authUserPostPage + "?id=" + postId.getKey();
@@ -329,7 +330,7 @@ function elcreativeAuthPostCreate() {
           console.log(error);
         }), false;
 
-        functionSnackbar("Uploading…", 5000);
+        
       });
     } else {
       if (confirm('You need to login to access this page. Do you want to log in?')) {
