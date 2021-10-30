@@ -305,22 +305,20 @@ function elcreativeAuthPostCreate() {
         }
       });
 
-      document.getElementById("auth_post_create").addEventListener("submit", function(e) {
-        e.preventDefault();
+      document.getElementById("auth_post_create").addEventListener("submit", function(postContent) {
+        postContent.preventDefault();
 
-        (e = {}).title = document.getElementById("auth_input_post_title").value;
-        e.description = document.getElementById("auth_input_post_description").value;
-        e.labels = document.getElementById("auth_input_post_label").value;
-        e.content = tinymce.get("auth_input_post_content").getContent();
-        e.created = (new Date).getTime();
-        e.updated = e.created;
-        e.views = 0;
-        e.status = "Pending";
+        (postContent = {}).title = document.getElementById("auth_input_post_title").value;
+        postContent.description = document.getElementById("auth_input_post_description").value;
+        postContent.labels = document.getElementById("auth_input_post_label").value;
+        postContent.content = tinymce.get("auth_input_post_content").getContent();
+        postContent.created = (new Date).getTime();
+        postContent.updated = postContent.created;
+        postContent.views = 0;
+        postContent.status = "Pending";
 
         var refPost = firebase.database().ref('Users/' + database.uid).child("userPost");
-        return refPost.transaction(function(x) {
-          return (x || 0) + 10
-        }), refPost.push(e).then(function(y) {
+        refPost.push(postContent).then(function(y) {
           window.location.href = authUserPostPage + "?id=" + y.getKey();
         }).catch(function(z) {
           console.error(z);
