@@ -38,7 +38,7 @@ function elcreativeAuthProfile () {
       });
 
       var refUserPost = firebase.database().ref().child('Users/' + database.uid).child("userPost");
-      refUserPost.limitToLast(6).once("value", function(postItem) {
+      refUserPost.limitToLast(3).once("value", function(postItem) {
         var postContent = "";
         postItem.forEach(function(postId) {
           database = postId.val();
@@ -327,7 +327,9 @@ function elcreativeAuthPostCreate() {
           window.location.href = authUserPostPage + "?id=" + postId.getKey();
         }).catch(function(error) {
           console.log(error);
-        }), false
+        }), false;
+
+        document.getElementById("btn_create").remove()
       });
     } else {
       if (confirm('You need to login to access this page. Do you want to log in?')) {
