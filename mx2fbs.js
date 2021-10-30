@@ -316,6 +316,7 @@ function elcreativeAuthPostCreate() {
         postContent.content = tinymce.get("auth_input_post_content").getContent();
         postContent.created = (new Date).getTime();
         postContent.updated = postContent.created;
+        postContent.author = database.displayName;
         postContent.views = 0;
         postContent.status = "Pending";
 
