@@ -103,11 +103,7 @@ function elcreativeAuthPost() {
           } else {}
         })
       } else {
-        if (confirm('Sorry, this post has not been created or does not exist. Do you want to write it?')) {
-          window.location.href = authCreatePost;
-        } else {
-          window.location.href = authProfilePage;
-        }
+         window.location.href = authProfilePage;
       }
     } else {
       if (confirm('You need to login to access this page. Do you want to log in?')) {
