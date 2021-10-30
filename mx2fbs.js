@@ -323,7 +323,7 @@ function elcreativeAuthPostCreate() {
         }), refPost.push(e).then(function(y) {
           window.location.href = authUserPostPage + "?id=" + y.getKey();
         }).catch(function(z) {
-          console.error(e);
+          console.error(z);
         }), false
       });
     } else {
