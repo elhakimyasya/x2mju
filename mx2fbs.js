@@ -88,7 +88,7 @@ function elcreativeAuthPost() {
             document.querySelector(".Blog .post_title").innerText = postData.title;
           } else {
             if (confirm('Sorry, this post has not been created or does not exist. Do you want to write it?')) {
-              window.location.href = "create-posts.html";
+              window.location.href = authCreatePost;
             } else {
               window.location.href = authProfilePage;
             }
@@ -103,7 +103,7 @@ function elcreativeAuthPost() {
         })
       } else {
         if (confirm('Sorry, this post has not been created or does not exist. Do you want to write it?')) {
-          window.location.href = "create-posts.html";
+          window.location.href = authCreatePost;
         } else {
           window.location.href = authProfilePage;
         }
@@ -200,7 +200,7 @@ function elcreativeAuthPostEdit() {
             });
           } else {
             if (confirm('Sorry, this post has not been created or does not exist. Do you want to write it?')) {
-              window.location.href = "create-posts.html";
+              window.location.href = authCreatePost;
             } else {
               window.location.href = authProfilePage;
             }
@@ -227,11 +227,106 @@ function elcreativeAuthPostEdit() {
         })
       } else {
         if (confirm('Sorry, this post has not been created or does not exist. Do you want to write it?')) {
-          window.location.href = "create-posts.html";
+          window.location.href = authCreatePost;
         } else {
           window.location.href = authProfilePage;
         }
       }
+    } else {
+      if (confirm('You need to login to access this page. Do you want to log in?')) {
+        window.location.href = authLoginPage;
+      } else {
+        window.location.href = "/";
+      }
+    }
+  });
+};
+
+function elcreativeAuthPostCreate() {
+  firebase.auth().onAuthStateChanged(function(database) {
+    if (database) {
+      tinymce.init({
+        selector : "textarea",
+        height : 500,
+        branding : false,
+        menubar : "file edit view insert format tools table",
+        plugins : "link image preview toc codesample table wordcount code lists insertdatetime emoticons visualblocks",
+        toolbar : "formatselect | bold italic underline strikethrough superscript subscript blockquote | link image |  alignleft aligncenter alignright alignjustify bullist numlist | table toc | codesample preview insertdatetime emoticons visualblocks code",
+        toc_class : "elcTOC",
+        toc_depth : 6,
+        content_style : 'body { font-family: "Segoe UI"}',
+        codesample_languages : [{
+          text : "Command Line",
+          value : "command hljs hl hljs"
+        }, {
+          text : "CSS",
+          value : "css hljs hl css"
+        }, {
+          text : "C",
+          value : "c hljs hl c"
+        }, {
+          text : "C++",
+          value : "cpp hljs hl cpp"
+        }, {
+          text : "HTML/XML",
+          value : "html hljs hl html xml"
+        }, {
+          text : "Java",
+          value : "java hljs hl java"
+        }, {
+          text : "JavaScript",
+          value : "javascript hljs hl javascript"
+        }, {
+          text : "JSON",
+          value : "json hljs hl json"
+        }, {
+          text : "Markdown",
+          value : "markdown hljs hl markdown"
+        }, {
+          text : "PHP",
+          value : "php hljs hl php"
+        }, {
+          text : "Python",
+          value : "python hljs hl python"
+        }, {
+          text : "TypeScript",
+          value : "typescript hljs hl typescript"
+        }],
+        insertdatetime_formats : ["Updated: %A, %d %B %Y"],
+        rel_list : [{
+          title : "Internal Link",
+          value : ""
+        }, {
+          title : "External Link",
+          value : "noopener noreferer nofollow"
+        }],
+        extended_valid_elements : "img[src|loading=lazy|alt|title|width|height|align|onmouseover|onmouseout|name]",
+        init_instance_callback : function(ed) {
+          $(".__loader").remove();
+        }
+      });
+
+      document.getElementById("auth_post_create").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        (e = {}).title = document.getElementById("auth_input_post_title").value;
+        e.description = document.getElementById("auth_input_post_description").value;
+        e.labels = document.getElementById("auth_input_post_label").value;
+        e.content = tinymce.get("auth_input_post_content").getContent();
+        e.created = (new Date).getTime();
+        e.updated = e.created;
+        e.views = 0;
+        e.status = "Pending";
+
+        var refPost = firebase.database().ref('Users/' + database.uid).child("userPost");
+        return refPost.transaction(function(x) {
+          return (x || 0) + 10
+        }), refPost.push(e).then(function(y) {
+          window.location.href = authUserPostPage + "?id=" + y.getKey();
+        }).catch(function(z) {
+          console.error(e);
+        }), false
+      });
     } else {
       if (confirm('You need to login to access this page. Do you want to log in?')) {
         window.location.href = authLoginPage;
