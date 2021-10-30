@@ -308,6 +308,8 @@ function elcreativeAuthPostCreate() {
       document.getElementById("btn_create").addEventListener("click", function(postContent) {
         postContent.preventDefault();
 
+        document.getElementById("btn_create").remove();
+
         (postContent = {}).title = document.getElementById("auth_input_post_title").value;
         postContent.description = document.getElementById("auth_input_post_description").value;
         postContent.labels = document.getElementById("auth_input_post_label").value;
@@ -329,7 +331,7 @@ function elcreativeAuthPostCreate() {
           console.log(error);
         }), false;
 
-        document.getElementById("btn_create").remove()
+        
       });
     } else {
       if (confirm('You need to login to access this page. Do you want to log in?')) {
