@@ -305,7 +305,7 @@ function elcreativeAuthPostCreate() {
         }
       });
 
-      document.getElementById("auth_post_create").addEventListener("submit", function(postContent) {
+      document.querySelector("form").addEventListener("submit", function(postContent) {
         postContent.preventDefault();
 
         (postContent = {}).title = document.getElementById("auth_input_post_title").value;
@@ -317,8 +317,13 @@ function elcreativeAuthPostCreate() {
         postContent.views = 0;
         postContent.status = "Pending";
 
-        var refUid = firebase.database().ref('Users/' + database.uid).child("userPost");
-        refUid.push(postContent).then(function(y) {
+        var refUid = firebase.database().ref('Users/' + database.uid);
+        var refData = refUid.child("userData");
+        var refPost = refUid.child("userPost");
+
+        return refData.child("userPoints").transaction(function(e) {
+          return (e || 0) + 10
+        }), refPost.push(postContent).then(function(y) {
           window.location.href = authUserPostPage + "?id=" + y.getKey();
         }).catch(function(z) {
           console.log(z);
