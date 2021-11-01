@@ -34,7 +34,7 @@ function elcreativeAuthProfile() {
           userName: database.displayName,
           userPhotoUrl: database.photoURL,
           userUID: database.uid,
-          userPoints: 0
+          userPoints: 
         }
       });
 
