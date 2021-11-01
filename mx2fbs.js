@@ -17,7 +17,7 @@ function elcreativeAuthLogin() {
   (new firebaseui.auth.AuthUI(firebase.auth())).start("#firebaseui-auth-container", config)
 };
 
-function elcreativeAuthProfile () {
+function elcreativeAuthProfile() {
   firebase.auth().onAuthStateChanged(function(database) {
     if (database) {
       document.getElementById("auth_logout").onclick = function() {
@@ -37,6 +37,7 @@ function elcreativeAuthProfile () {
         }
       });
 
+
       var refUserPost = firebase.database().ref().child('Users/' + database.uid).child("userPost");
       refUserPost.once("value", function(postItem) {
         var postContent = "";
@@ -50,11 +51,7 @@ function elcreativeAuthProfile () {
         }
       });
     } else {
-      if (confirm('You need to login to access this page. Do you want to log in?')) {
-        window.location.href = authLoginPage;
-      } else {
-        window.location.href = "/";
-      }
+      window.location.href = authLoginPage;
     }
   });
 };
@@ -87,11 +84,7 @@ function elcreativeAuthPost() {
 
             document.querySelector(".Blog .post_title").innerText = postData.title;
           } else {
-            if (confirm('Sorry, this post has not been created or does not exist. Do you want to write it?')) {
-              window.location.href = authCreatePost;
-            } else {
-              window.location.href = authProfilePage;
-            }
+            window.location.href = authProfilePage;
           }
         });
 
@@ -103,16 +96,12 @@ function elcreativeAuthPost() {
           } else {}
         })
       } else {
-         window.location.href = authProfilePage;
-      }
-    } else {
-      if (confirm('You need to login to access this page. Do you want to log in?')) {
-        window.location.href = authLoginPage;
-      } else {
-        window.location.href = "/";
-      }
-    }
-  });
+       window.location.href = authProfilePage;
+     }
+   } else {
+    window.location.href = authLoginPage;
+  }
+});
 };
 
 function elcreativeAuthPostEdit() {
@@ -196,11 +185,7 @@ function elcreativeAuthPostEdit() {
               }
             });
           } else {
-            if (confirm('Sorry, this post has not been created or does not exist. Do you want to write it?')) {
-              window.location.href = authCreatePost;
-            } else {
-              window.location.href = authProfilePage;
-            }
+            window.location.href = authProfilePage;
           }
         });
         document.getElementById("auth_post_edit").addEventListener("submit", function(postContent) {
@@ -223,18 +208,10 @@ function elcreativeAuthPostEdit() {
           }), false;
         })
       } else {
-        if (confirm('Sorry, this post has not been created or does not exist. Do you want to write it?')) {
-          window.location.href = authCreatePost;
-        } else {
-          window.location.href = authProfilePage;
-        }
+        window.location.href = authProfilePage;
       }
     } else {
-      if (confirm('You need to login to access this page. Do you want to log in?')) {
-        window.location.href = authLoginPage;
-      } else {
-        window.location.href = "/";
-      }
+      window.location.href = authLoginPage;
     }
   });
 };
@@ -333,11 +310,7 @@ function elcreativeAuthPostCreate() {
         
       });
     } else {
-      if (confirm('You need to login to access this page. Do you want to log in?')) {
-        window.location.href = authLoginPage;
-      } else {
-        window.location.href = "/";
-      }
+      window.location.href = authLoginPage;
     }
   })
 };
