@@ -92,11 +92,13 @@ function elcreativeAuthPost() {
         document.getElementById("auth_post_delete").addEventListener("click", function() {
           var refProfile = firebase.database().ref('Users/' + database.uid).child("userProfile").child("userPoints");
           if (confirm('Are you sure to delete this post?')) {
-            refPost.remove();
-            return refProfile.transaction(function(points) {
+            refProfile.transaction(function(points) {
               return (points || 0) - 10
+            }).then(function() {
+              refPost.remove();
+              window.location.href = authProfilePage;
             })
-            window.location.href = authProfilePage;
+            
           } else {}
         })
       } else {
