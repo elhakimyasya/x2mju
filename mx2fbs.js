@@ -2,20 +2,7 @@ function elcreativeAuthLogin() {
   firebase.auth().onAuthStateChanged(function(database) {
     if (database) {
       window.location.href = authProfilePage;
-      localStorage.setItem("auth_image", database.photoURL);
-
-
-      var refUser = firebase.database().ref().child('Users/' + database.uid);
-      if (refUser.child("userData").exists() === false) {
-        refUser.update({
-          userData : {
-            userEmail: database.email,
-            userName: database.displayName,
-            userPhotoUrl: database.photoURL,
-            userUID: database.uid
-          }
-        });
-      }
+      localStorage.setItem("auth_image", database.photoURL)
     } else {
       localStorage.removeItem("auth_image")
     }
@@ -52,6 +39,22 @@ function elcreativeAuthProfile() {
           document.querySelector(".tab_panel_post").innerHTML = postContent;
         }
       });
+
+
+
+      var refUser = firebase.database().ref().child('Users/' + database.uid);
+      if (refUser.child("userData").exists()) {
+        
+      } else {
+        refUser.update({
+          userData : {
+            userEmail: database.email,
+            userName: database.displayName,
+            userPhotoUrl: database.photoURL,
+            userUID: database.uid
+          }
+        });
+      }
     } else {
       window.location.href = authLoginPage;
     }
