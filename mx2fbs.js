@@ -43,7 +43,7 @@ function elcreativeAuthProfile() {
 
 
       var refUser = firebase.database().ref().child('Users/' + database.uid);
-      refUser.once("value").then(function(snap) {
+      refUser.once("value", function(snap) {
         var userData = snap.child("userData");
 
         if (userData !== false) {
