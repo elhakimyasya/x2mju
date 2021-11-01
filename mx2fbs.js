@@ -2,7 +2,20 @@ function elcreativeAuthLogin() {
   firebase.auth().onAuthStateChanged(function(database) {
     if (database) {
       window.location.href = authProfilePage;
-      localStorage.setItem("auth_image", database.photoURL)
+      localStorage.setItem("auth_image", database.photoURL);
+
+
+      var refUser = firebase.database().ref().child('Users/' + database.uid);
+      if (refUser.child("userData").exists() === false) {
+        refUser.update({
+          userData : {
+            userEmail: database.email,
+            userName: database.displayName,
+            userPhotoUrl: database.photoURL,
+            userUID: database.uid
+          }
+        });
+      }
     } else {
       localStorage.removeItem("auth_image")
     }
@@ -26,18 +39,6 @@ function elcreativeAuthProfile() {
       };
 
       document.querySelector(".auth_profile_container").innerHTML = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + database.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + database.displayName + '</div><div class="auth_email">' + database.email + '</div><div class="auth_action"><a href="/p/' + authCreatePost + '">Create Posts</a></div></div></div>';
-
-      var refUser = firebase.database().ref().child('Users/' + database.uid);
-      if (refUser.child("userData").exists() === false) {
-        refUser.update({
-          userData : {
-            userEmail: database.email,
-            userName: database.displayName,
-            userPhotoUrl: database.photoURL,
-            userUID: database.uid
-          }
-        });
-      }
 
       var refUserPost = firebase.database().ref().child('Users/' + database.uid).child("userPost");
       refUserPost.once("value", function(postItem) {
