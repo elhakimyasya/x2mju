@@ -90,8 +90,12 @@ function elcreativeAuthPost() {
 
         document.getElementById('auth_post_update').setAttribute("href", authEditPost + "?id=" + postId);
         document.getElementById("auth_post_delete").addEventListener("click", function() {
+          var refProfile = firebase.database().ref('Users/' + database.uid).child("userProfile").child("userPoints");
           if (confirm('Are you sure to delete this post?')) {
             refPost.remove();
+            return refProfile.transaction(function(points) {
+              return (points || 0) - 10
+            })
             window.location.href = authProfilePage;
           } else {}
         })
@@ -203,8 +207,8 @@ function elcreativeAuthPostEdit() {
             return (o = o || {}).title = document.getElementById("auth_input_post_title").value, o.description = document.getElementById("auth_input_post_description").value, o.labels = document.getElementById("auth_input_post_label").value, o.content = postContentUnescaped, o.updated = (new Date).getTime(), o.author = database.displayName, o;
           }).then(function() {
             window.location.href = authUserPostPage + "?id=" + postId;
-          }).catch(function(bbls) {
-            console.log(bbls);
+          }).catch(function(error) {
+            console.log(error);
           }), false;
         })
       } else {
