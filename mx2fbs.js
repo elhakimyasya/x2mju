@@ -296,10 +296,10 @@ function elcreativeAuthPostCreate() {
         postContent.status = "Pending";
 
         var refUid = firebase.database().ref('Users/' + database.uid);
-        var refData = refUid.child("userData").child("userPoints");
+        var refProfile = refUid.child("userProfile").child("userPoints");
         var refPost = refUid.child("userPost");
         
-        return refData.transaction(function(points) {
+        return refProfile.transaction(function(points) {
           return (points || 0) + 10
         }), refPost.push(postContent).then(function(postId) {
           window.location.href = authUserPostPage + "?id=" + postId.getKey();
