@@ -47,7 +47,8 @@ function elcreativeAuthProfile() {
         });
 
         if (postContent !== "") {
-          document.querySelector(".tab_panel_post").innerHTML = postContent;
+          document.querySelector(".elcreative_tab .tab_button_container").innerHTML += "<button id='tab_button_post' class='tab_button elcreative_ripple' type='button' aria-label='Posts' data-toggle-target='#tab_panel_post' aria-controls='tab_panel_post' role='tab' aria-selected='true' data-toggle-radio-group='tab_auth' data-toggle-arrows='' data-toggle-class='' data-toggle-is-active=''>Your Posts</button>";
+          document.querySelector(".tab_panel_post").innerHTML += "<div id='tab_panel_post' class='tab_panel_content tab_panel_post' role='tabpanel' aria-labelledby='tab_button_post' aria-hidden='true'>" + postContent + "</div>";
         }
       });
     } else {
@@ -90,15 +91,9 @@ function elcreativeAuthPost() {
 
         document.getElementById('auth_post_update').setAttribute("href", authEditPost + "?id=" + postId);
         document.getElementById("auth_post_delete").addEventListener("click", function() {
-          var refProfile = firebase.database().ref('Users/' + database.uid).child("userProfile").child("userPoints");
           if (confirm('Are you sure to delete this post?')) {
-            refProfile.transaction(function(points) {
-              return (points || 0) - 10
-            }).then(function() {
-              refPost.remove();
-              window.location.href = authProfilePage;
-            })
-            
+            refPost.remove();
+            window.location.href = authProfilePage;
           } else {}
         })
       } else {
