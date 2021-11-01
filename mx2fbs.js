@@ -25,7 +25,7 @@ function elcreativeAuthProfile() {
         localStorage.removeItem("auth_image")
       };
 
-      document.querySelector(".auth_profile_container").innerHTML = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + database.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + database.displayName + '</div><div class="auth_email">' + database.email + '</div><div class="auth_name"><a href="/p/' + authCreatePost + '">Create Posts</a></div></div></div>';
+      document.querySelector(".auth_profile_container").innerHTML = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + database.photoURL + '"/></div><div class="auth_info"><div class="auth_name">' + database.displayName + '</div><div class="auth_email">' + database.email + '</div><div class="auth_action"><a href="/p/' + authCreatePost + '">Create Posts</a></div></div></div>';
 
       var refUser = firebase.database().ref().child('Users/' + database.uid);
       refUser.update({
