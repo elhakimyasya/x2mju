@@ -29,7 +29,7 @@ function elcreativeAuthProfile() {
 
       var refUser = firebase.database().ref().child('Users/' + database.uid);
       if (refUser.child("userData") !== null) {
-        refUser.set({
+        refUser.update({
           userData : {
             userEmail: database.email,
             userName: database.displayName,
