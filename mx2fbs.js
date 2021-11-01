@@ -46,14 +46,12 @@ function elcreativeAuthProfile() {
       refUser.once("value").then(function(snap) {
         var userData = snap.child("userData");
 
-        if (userData !== null) {
-          refUser.update({
-            userData : {
+        if (userData !== false) {
+          userData.update({
               userEmail: database.email,
               userName: database.displayName,
               userPhotoUrl: database.photoURL,
               userUID: database.uid
-            }
           });
         }
       })
