@@ -37,17 +37,22 @@ function elcreativeAuthProfile () {
         }
       });
 
+      var latestDoc = null;
       function loadPost() {
         var refUserPost = firebase.database().ref().child('Users/' + database.uid).child("userPost");
-        refUserPost.orderBy("updated").startAfter().limit(3).once("value", function(postItem) {
+        refUserPost.once("value", function(postItem) {
           var postContent = "";
-          postItem.forEach(function(postId) {
+
+          var xxx = postItem.orderBy("updated").startAfter(postItem || 0).limit(3);
+          xxx.forEach(function(postId) {
             database = postId.val();
             postContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + postId.getKey() + '" title="' + database.title + '">' + database.title + '</a><small>' + database.author + " - " + datetimeFormat(database.updated) + ' | <a href="' + authEditPost + "?id=" + postId.getKey() + '" style="display:inline">Edit</a></small></div><div class="article_action"><small>Pending</small></div></div>' + postContent;
           });
 
           if (postContent !== "") {
             document.querySelector(".tab_panel_post").innerHTML = postContent;
+
+            latestDoc = xxx.postItem[xxx.postItem.length - 1];
           }
         });
       }
