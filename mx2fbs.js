@@ -10,11 +10,11 @@ function elcreativeAuthLogin() {
 
   var config = {
     signInSuccessUrl : false,
-signInOptions : [firebase.auth.GoogleAuthProvider.PROVIDER_ID], //, firebase.auth.FacebookAuthProvider.PROVIDER_ID, firebase.auth.GithubAuthProvider.PROVIDER_ID, firebase.auth.EmailAuthProvider.PROVIDER_ID
-tosUrl : false
-};
+    signInOptions : [firebase.auth.GoogleAuthProvider.PROVIDER_ID], //, firebase.auth.FacebookAuthProvider.PROVIDER_ID, firebase.auth.GithubAuthProvider.PROVIDER_ID, firebase.auth.EmailAuthProvider.PROVIDER_ID
+    tosUrl : false
+  };
 
-(new firebaseui.auth.AuthUI(firebase.auth())).start("#firebaseui-auth-container", config)
+  (new firebaseui.auth.AuthUI(firebase.auth())).start("#firebaseui-auth-container", config)
 };
 
 function elcreativeAuthProfile () {
@@ -37,27 +37,18 @@ function elcreativeAuthProfile () {
         }
       });
 
-      var latestDoc = null;
-      function loadPost() {
-        var refUserPost = firebase.database().ref().child('Users/' + database.uid).child("userPost");
-        refUserPost.once("value", function(postItem) {
-          var postContent = "";
-
-          var xxx = postItem.orderBy("updated").startAfter(postItem || 0).limit(3);
-          xxx.forEach(function(postId) {
-            database = postId.val();
-            postContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + postId.getKey() + '" title="' + database.title + '">' + database.title + '</a><small>' + database.author + " - " + datetimeFormat(database.updated) + ' | <a href="' + authEditPost + "?id=" + postId.getKey() + '" style="display:inline">Edit</a></small></div><div class="article_action"><small>Pending</small></div></div>' + postContent;
-          });
-
-          if (postContent !== "") {
-            document.querySelector(".tab_panel_post").innerHTML = postContent;
-
-            latestDoc = xxx.postItem[xxx.postItem.length - 1];
-          }
+      var refUserPost = firebase.database().ref().child('Users/' + database.uid).child("userPost");
+      refUserPost.once("value", function(postItem) {
+        var postContent = "";
+        postItem.forEach(function(postId) {
+          database = postId.val();
+          postContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + postId.getKey() + '" title="' + database.title + '">' + database.title + '</a><small>' + database.author + " - " + datetimeFormat(database.updated) + ' | <a href="' + authEditPost + "?id=" + postId.getKey() + '" style="display:inline">Edit</a></small></div><div class="article_action"><small>Pending</small></div></div>' + postContent;
         });
-      }
 
-      loadPost();
+        if (postContent !== "") {
+          document.querySelector(".tab_panel_post").innerHTML = postContent;
+        }
+      });
     } else {
       if (confirm('You need to login to access this page. Do you want to log in?')) {
         window.location.href = authLoginPage;
@@ -112,7 +103,7 @@ function elcreativeAuthPost() {
           } else {}
         })
       } else {
-        window.location.href = authProfilePage;
+         window.location.href = authProfilePage;
       }
     } else {
       if (confirm('You need to login to access this page. Do you want to log in?')) {
@@ -330,7 +321,7 @@ function elcreativeAuthPostCreate() {
         var refUid = firebase.database().ref('Users/' + database.uid);
         var refData = refUid.child("userData").child("userPoints");
         var refPost = refUid.child("userPost");
-
+        
         return refData.transaction(function(points) {
           return (points || 0) + 10
         }), refPost.push(postContent).then(function(postId) {
@@ -339,7 +330,7 @@ function elcreativeAuthPostCreate() {
           console.log(error);
         }), false;
 
-
+        
       });
     } else {
       if (confirm('You need to login to access this page. Do you want to log in?')) {
