@@ -46,7 +46,7 @@ function elcreativeAuthProfile() {
           if (database.userWebURL !== null) {
             document.getElementById("auth_user_web_url").value = databases.userWebURL;
           }
-          
+
           if (database.userLocation !== null) {
             document.getElementById("auth_input_location").value = databases.userLocation;
           }
@@ -84,11 +84,10 @@ function elcreativeAuthProfile() {
         if (postContent !== "") {
           document.querySelector(".elcreative_tab .tab_button_container").innerHTML += "<button id='tab_button_post' class='tab_button elcreative_ripple' type='button' aria-label='Posts' data-toggle-target='#tab_panel_post' aria-controls='tab_panel_post' role='tab' aria-selected='true' data-toggle-radio-group='tab_auth' data-toggle-arrows='' data-toggle-class='' data-toggle-is-active=''>Your Posts</button>";
           document.querySelector(".elcreative_tab").innerHTML += "<div id='tab_panel_post' class='tab_panel_content tab_panel_post' role='tabpanel' aria-labelledby='tab_button_post' aria-hidden='true'>" + postContent + "</div>";
-
-          easyToggleState();
         }
       });
-
+      
+      easyToggleState();
     } else {
       window.location.href = authLoginPage;
     }
