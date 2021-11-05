@@ -10,11 +10,11 @@ function elcreativeAuthLogin() {
 
   var config = {
     signInSuccessUrl : false,
-    signInOptions : [firebase.auth.GoogleAuthProvider.PROVIDER_ID], //, firebase.auth.FacebookAuthProvider.PROVIDER_ID, firebase.auth.GithubAuthProvider.PROVIDER_ID, firebase.auth.EmailAuthProvider.PROVIDER_ID
-    tosUrl : false
-  };
+signInOptions : [firebase.auth.GoogleAuthProvider.PROVIDER_ID], //, firebase.auth.FacebookAuthProvider.PROVIDER_ID, firebase.auth.GithubAuthProvider.PROVIDER_ID, firebase.auth.EmailAuthProvider.PROVIDER_ID
+tosUrl : false
+};
 
-  (new firebaseui.auth.AuthUI(firebase.auth())).start("#firebaseui-auth-container", config)
+(new firebaseui.auth.AuthUI(firebase.auth())).start("#firebaseui-auth-container", config)
 };
 
 function elcreativeAuthProfile() {
@@ -25,9 +25,9 @@ function elcreativeAuthProfile() {
         localStorage.removeItem("auth_image")
       };
 
-      document.querySelector(".auth_profile_container").innerHTML = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + userConfig.userPhotoUrl + '"></span><button class="auth_profile_edit"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg></button></div><div class="auth_info"><div class="auth_name">' + userConfig.userName + '</div><div class="auth_email">' + userConfig.userEmail + '</div><div class="auth_action"><a href="/p/' + authCreatePost + '">Create Posts</a></div></div></div>';
+      document.querySelector(".auth_profile_container").innerHTML = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + database.photoURL + '"></span><button class="auth_profile_edit"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg></button></div><div class="auth_info"><div class="auth_name">' + database.displayName + '</div><div class="auth_email">' + database.email + '</div><div class="auth_action"><a href="/p/' + authCreatePost + '">Create Posts</a></div></div></div>';
 
-        var refUser = firebase.database().ref().child('Users/' + database.uid);
+      var refUser = firebase.database().ref().child('Users/' + database.uid);
       refUser.update({
         userData : {
           userEmail: database.email,
@@ -100,12 +100,12 @@ function elcreativeAuthPost() {
           } else {}
         })
       } else {
-       window.location.href = authProfilePage;
-     }
-   } else {
-    window.location.href = authLoginPage;
-  }
-});
+        window.location.href = authProfilePage;
+      }
+    } else {
+      window.location.href = authLoginPage;
+    }
+  });
 };
 
 function elcreativeAuthPostEdit() {
@@ -302,7 +302,7 @@ function elcreativeAuthPostCreate() {
         var refUid = firebase.database().ref('Users/' + database.uid);
         var refProfile = refUid.child("userProfile").child("userPoints");
         var refPost = refUid.child("userPost");
-        
+
         return refProfile.transaction(function(points) {
           return (points || 0) + 10
         }), refPost.push(postContent).then(function(postId) {
@@ -311,7 +311,7 @@ function elcreativeAuthPostCreate() {
           console.log(error);
         }), false;
 
-        
+
       });
     } else {
       window.location.href = authLoginPage;
