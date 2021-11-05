@@ -1,14 +1,12 @@
 function elcreativeAuthLogin() {
   firebase.auth().onAuthStateChanged(function(database) {
     if (database) {
-      var refUser = firebase.database().ref().child('Users/' + database.uid);
-      refUser.update({
-        userData : {
+      var refUserProfile = firebase.database().ref().child('Users/' + database.uid).child("userProfile");
+      refUserProfile.update({
           userEmail: database.email,
           userName: database.displayName,
           userPhotoUrl: database.photoURL,
           userUID: database.uid
-        }
       }).then(function() {
         localStorage.setItem("auth_image", database.photoURL);
         window.location.href = authProfilePage;
