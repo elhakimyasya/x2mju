@@ -86,7 +86,7 @@ function elcreativeAuthProfile() {
           document.querySelector(".elcreative_tab").innerHTML += "<div id='tab_panel_post' class='tab_panel_content tab_panel_post' role='tabpanel' aria-labelledby='tab_button_post' aria-hidden='true'>" + postContent + "</div>";
         }
 
-        console.log(postItem.length)
+        console.log(postContent.length)
 
         easyToggleState();
       });
