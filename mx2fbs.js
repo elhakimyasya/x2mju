@@ -40,7 +40,7 @@ function elcreativeAuthProfile() {
       var refUserProfile = firebase.database().ref().child('Users/' + database.uid).child("userProfile").once("value", function(databases) {
         databases = databases.val;
 
-        if (databases) {
+        if (databases !== null) {
           document.getElementById("auth_user_web_url").value = databases.userWebURL;
           document.getElementById("auth_input_location").value = databases.userLocation;
           document.getElementById("auth_input_bio").value = databases.userBio;
@@ -48,11 +48,18 @@ function elcreativeAuthProfile() {
       });
 
       document.getElementById("button_auth_profile_save").addEventListener("click", function(profileContent) {
-        refUserProfile.transaction(function(event) {
-          return (event = event || {}).userWebURL = document.getElementById("auth_user_web_url").value, event.userLocation = document.getElementById("auth_input_location").value, event.document.getElementById("auth_input_bio").value, event;
-        }).then(function() {
+        profileContent.preventDefault();
+        functionSnackbar("Saving…", 5000);
+
+        (profileContent = {}).userWebURL = document.getElementById("auth_user_web_url").value;
+        profileContent.userLocation = document.getElementById("auth_input_location").value;
+        profileContent.userBio = document.getElementById("auth_input_bio").value;
+
+        refUserProfile.push(profileContent).then(function() {
           functionSnackbar("Profile settings saved successfully!", 5000);
-        })
+        }).catch(function(error) {
+          console.log(error);
+        }), false;
       });
 
       var refUserPost = firebase.database().ref().child('Users/' + database.uid).child("userPost");
