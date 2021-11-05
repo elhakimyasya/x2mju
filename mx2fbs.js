@@ -48,12 +48,7 @@ function elcreativeAuthProfile() {
       });
 
       document.getElementById("button_auth_profile_save").addEventListener("click", function(profileContent) {
-
-        var profileResult = {
-          '"' : '"'
-        };
-
-        return refUserProfile.transaction(function(event) {
+        refUserProfile.transaction(function(event) {
           return (event = event || {}).userWebURL = document.getElementById("auth_user_web_url").value, event.userLocation = document.getElementById("auth_input_location").value, event.document.getElementById("auth_input_bio").value, event;
         }).then(function() {
           functionSnackbar("Profile settings saved successfully!", 5000);
