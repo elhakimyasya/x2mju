@@ -41,7 +41,7 @@ function elcreativeAuthProfile() {
       refUserProfile.once("value", function(databases) {
         databases = databases.val;
 
-        if (databases !== null) {
+        if (databases) {
           document.getElementById("auth_user_web_url").value = databases.userWebURL;
           document.getElementById("auth_input_location").value = databases.userLocation;
           document.getElementById("auth_input_bio").value = databases.userBio;
@@ -56,7 +56,7 @@ function elcreativeAuthProfile() {
           profileContent.userBio = document.getElementById("auth_input_bio").value;
 
           refUserProfile.update(profileContent).then(function() {
-            functionSnackbar("Profile settings saved successfully!", 5000);
+            location.reload();
           }).catch(function(error) {
             console.log(error);
           }), false;
