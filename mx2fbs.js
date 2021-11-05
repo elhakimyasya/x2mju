@@ -43,7 +43,7 @@ function elcreativeAuthProfile() {
         databases = databases.val();
 
         if (databases !== null) {
-          if (database.userLocation !== null) {
+          if (database.userWebURL !== null) {
             document.getElementById("auth_user_web_url").value = databases.userWebURL;
           }
           
