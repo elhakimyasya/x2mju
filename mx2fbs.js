@@ -129,8 +129,15 @@ function elcreativeAuthPost() {
         document.getElementById('auth_post_update').setAttribute("href", authEditPost + "?id=" + postId);
         document.getElementById("auth_post_delete").addEventListener("click", function() {
           if (confirm('Are you sure to delete this post?')) {
-            refPost.remove();
-            window.location.href = authProfilePage;
+            firebase.database().ref('Users/' + database.uid).child("userProfile").child("userPosts").transaction(function(points) {
+              return (points || 0) - 1
+            });
+            firebase.database().ref('Users/' + database.uid).child("userProfile").child("userPoints").transaction(function(points) {
+              return (points || 0) - 10
+            }).then(function() {
+              refPost.remove();
+              window.location.href = authProfilePage;
+            });
           } else {}
         })
       } else {
