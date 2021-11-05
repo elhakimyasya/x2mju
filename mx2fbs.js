@@ -43,11 +43,18 @@ function elcreativeAuthProfile() {
         databases = databases.val();
 
         if (databases !== null) {
-          document.getElementById("auth_user_web_url").value = null !== databases.userWebURL && databases.userWebURL;
-          document.getElementById("auth_input_location").value = null !== databases.userLocation && databases.userLocation;
-          document.getElementById("auth_input_bio").value = null !== databases.userBio && databases.userBio;
+          if (database.userLocation !== null) {
+            document.getElementById("auth_user_web_url").value = databases.userWebURL;
+          }
+          
+          if (database.userLocation !== null) {
+            document.getElementById("auth_input_location").value = databases.userLocation;
+          }
 
-          document.querySelector(".auth_bio").innerHTML = null !== databases.userBio && databases.userBio;
+          if (database.userBio !== null) {
+            document.getElementById("auth_input_bio").value = databases.userBio;
+            document.querySelector(".auth_bio").innerHTML = databases.userBio;
+          }
         }
       });
 
