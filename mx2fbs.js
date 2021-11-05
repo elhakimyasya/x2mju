@@ -10,11 +10,11 @@ function elcreativeAuthLogin() {
 
   var config = {
     signInSuccessUrl : false,
-signInOptions : [firebase.auth.GoogleAuthProvider.PROVIDER_ID], //, firebase.auth.FacebookAuthProvider.PROVIDER_ID, firebase.auth.GithubAuthProvider.PROVIDER_ID, firebase.auth.EmailAuthProvider.PROVIDER_ID
-tosUrl : false
-};
+    signInOptions : [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+    tosUrl : false
+  };
 
-(new firebaseui.auth.AuthUI(firebase.auth())).start("#firebaseui-auth-container", config)
+  (new firebaseui.auth.AuthUI(firebase.auth())).start("#firebaseui-auth-container", config)
 };
 
 function elcreativeAuthProfile() {
@@ -134,10 +134,10 @@ function elcreativeAuthPost() {
             });
             firebase.database().ref('Users/' + database.uid).child("userProfile").child("userPoints").transaction(function(points) {
               return (points || 0) - 10
-            }).then(function() {
-              refPost.remove();
-              window.location.href = authProfilePage;
-            });
+            })
+
+            refPost.remove();
+            window.location.href = authProfilePage;
           } else {}
         })
       } else {
