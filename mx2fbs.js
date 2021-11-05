@@ -41,11 +41,9 @@ function elcreativeAuthProfile() {
       (refUserProfile).once("value", function(databases) {
         databases = databases.val;
 
-        if (databases) {
           document.getElementById("auth_user_web_url").value = databases.userWebURL;
           document.getElementById("auth_input_location").value = databases.userLocation;
           document.getElementById("auth_input_bio").value = databases.userBio;
-        };
       });
 
       document.getElementById("button_auth_profile_save").addEventListener("click", function(profileContent) {
