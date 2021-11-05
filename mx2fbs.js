@@ -48,7 +48,6 @@ function elcreativeAuthProfile() {
       });
 
       document.getElementById("button_auth_profile_save").addEventListener("click", function(profileContent) {
-        postContent.preventDefault();
 
         var profileResult = {
           '"' : '"'
