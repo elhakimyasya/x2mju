@@ -43,9 +43,9 @@ function elcreativeAuthProfile() {
         databases = databases.val();
 
         if (databases !== null) {
-          document.getElementById("auth_user_web_url").value = databases.userWebURL;
-          document.getElementById("auth_input_location").value = databases.userLocation;
-          document.getElementById("auth_input_bio").value = databases.userBio;
+          document.getElementById("auth_user_web_url").value = databases.userWebURL !== void 0 && databases.userWebURL;
+          document.getElementById("auth_input_location").value = databases.userLocation !== void 0 && databases.userLocation;
+          document.getElementById("auth_input_bio").value = databases.userBio !== void 0 && databases.userBio;
 
           document.querySelector(".auth_bio").innerHTML = databases.userBio !== void 0 && databases.userBio;
         }
