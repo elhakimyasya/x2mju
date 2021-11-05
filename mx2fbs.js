@@ -25,15 +25,15 @@ function elcreativeAuthProfile() {
         localStorage.removeItem("auth_image")
       };
 
-      var userConfig = {
-        userPhotoUrl: database.photoURL,
-        userName: database.displayName,
-        userEmail: database.userEmail
-      };
+
       var refUserProfile = firebase.database().ref().child('Users/' + database.uid).child("userProfile");
       refUserProfile.update({
-        userConfig
+          userPhotoUrl: database.photoURL,
+          userName: database.displayName,
+          userEmail: database.userEmail,
+          userUID: database.uid
       });
+
 
       document.querySelector(".auth_profile_container").innerHTML = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + userConfig.userPhotoUrl + '"></span><button class="auth_profile_edit"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg></button></div><div class="auth_info"><div class="auth_name">' + userConfig.userName + '</div><div class="auth_email">' + userConfig.userEmail + '</div><div class="auth_action"><a href="/p/' + authCreatePost + '">Create Posts</a></div></div></div>';
 
