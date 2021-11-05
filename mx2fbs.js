@@ -87,10 +87,7 @@ function elcreativeAuthProfile() {
         }
 
         easyToggleState();
-      });
-      console.log(refUserPost.length)
-
-      
+      });      
     } else {
       window.location.href = authLoginPage;
     }
@@ -337,10 +334,13 @@ function elcreativeAuthPostCreate() {
         postContent.status = "Pending";
 
         var refUid = firebase.database().ref('Users/' + database.uid);
-        var refProfile = refUid.child("userProfile").child("userPoints");
         var refPost = refUid.child("userPost");
 
-        return refProfile.transaction(function(points) {
+        refUid.child("userProfile").child("userPosts").transaction(function(points) {
+          return (points || 0) + 1
+        });
+
+        return refUid.child("userProfile").child("userPoints").transaction(function(points) {
           return (points || 0) + 10
         }), refPost.push(postContent).then(function(postId) {
           window.location.href = authUserPostPage + "?id=" + postId.getKey();
