@@ -55,7 +55,7 @@ function elcreativeAuthProfile() {
           profileContent.userLocation = document.getElementById("auth_input_location").value;
           profileContent.userBio = document.getElementById("auth_input_bio").value;
 
-          refUserProfile.transaction(profileContent).then(function() {
+          refUserProfile.update(profileContent).then(function() {
             functionSnackbar("Profile settings saved successfully!", 5000);
           }).catch(function(error) {
             console.log(error);
