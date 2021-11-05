@@ -47,7 +47,7 @@ function elcreativeAuthProfile() {
           document.getElementById("auth_input_location").value = databases.userLocation;
           document.getElementById("auth_input_bio").value = databases.userBio;
 
-          document.querySelector(".user_bio").innerHTML = databases.userBio
+          document.querySelector(".auth_bio").innerHTML = databases.userBio
         }
       });
 
