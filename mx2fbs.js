@@ -40,7 +40,7 @@ function elcreativeAuthProfile() {
 
       var refUserProfile = firebase.database().ref().child('Users/' + database.uid).child("userProfile");
       (refUserProf = refUserProfile).once("value", function(databases) {
-        databases = databases.val;
+        databases = databases.val();
 
         if (databases !== null) {
           document.getElementById("auth_user_web_url").value = databases.userWebURL;
