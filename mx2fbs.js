@@ -42,17 +42,15 @@ function elcreativeAuthProfile() {
       (refUserProf = refUserProfile).once("value", function(databases) {
         databases = databases.val();
 
-        if (databases) {
-          if (databases.userWebURL !== null) {
-            document.getElementById("auth_user_web_url").value = databases.userWebURL;
-          }
-          if (databases.userLocation !== null) {
-            document.getElementById("auth_input_location").value = databases.userLocation;
-          }
-          if (databases.userBio !== null) {
-            document.getElementById("auth_input_bio").value = databases.userBio;
-            document.querySelector(".auth_bio").innerHTML = databases.userBio;
-          }
+        if (databases.userWebURL !== undefined) {
+          document.getElementById("auth_user_web_url").value = databases.userWebURL;
+        }
+        if (databases.userLocation !== undefined) {
+          document.getElementById("auth_input_location").value = databases.userLocation;
+        }
+        if (databases.userBio !== undefined) {
+          document.getElementById("auth_input_bio").value = databases.userBio;
+          document.querySelector(".auth_bio").innerHTML = databases.userBio;
         }
 
         easyToggleState();
