@@ -1,12 +1,12 @@
 function elcreativeAuthLogin() {
   firebase.auth().onAuthStateChanged(function(database) {
     if (database) {
-      var refUserProfile = firebase.database().ref().child('Users/' + database.uid).child("userProfile");
-      refUserProfile.update({
-          userEmail: database.email,
-          userName: database.displayName,
-          userPhotoUrl: database.photoURL,
-          userUID: database.uid
+      var refLoginUserProfile = firebase.database().ref().child('Users/' + database.uid).child("userProfile");
+      refLoginUserProfile.update({
+        userEmail: database.email,
+        userName: database.displayName,
+        userPhotoUrl: database.photoURL,
+        userUID: database.uid
       }).then(function() {
         localStorage.setItem("auth_image", database.photoURL);
         window.location.href = authProfilePage;
@@ -34,13 +34,22 @@ function elcreativeAuthProfile() {
         localStorage.removeItem("auth_image")
       };
 
+      var refProfileUserProfile = firebase.database().ref().child('Users/' + database.uid).child("userProfile");
+      refProfileUserProfile.once("value", function(dbUserProfile) {
+        var value = dbUserProfile.val();
+
+        if (value.photoURL !== null) {
+          console.log(value.photoURL)
+        }
+      })
+
       document.querySelector(".auth_profile_container").innerHTML = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + database.photoURL + '"></span><button class="auth_profile_edit" type="button" aria-label="Profile Settings" data-toggle-class-on-target="active" data-toggle-target="#dialog_auth_profile_edit" aria-haspopup="listbox" aria-controls="dialog_auth_profile_edit" aria-expanded="false" data-toggle-outside data-toggle-escape><svg width="16" height="16" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg></button></div><div class="auth_info"><div class="auth_name">' + database.displayName + '</div><div class="auth_email">' + database.email + '</div><div class="auth_bio"></div><div class="auth_action"><a href="/p/' + authCreatePost + '">Create Posts</a></div></div></div>      <div id="dialog_auth_profile_edit" class="elcreative_dialog dialog_auth_profile_edit" aria-hidden="true" role="listbox"><div class="dialog_container"><div class="dialog_header"><span>Profile Settings</span><button class="button_close_dialog elcreative_button_icon small" type="button" aria-label="Close Dialog" data-toggle-trigger-off><svg width="24" height="24" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg></button></div><div class="dialog_content dialog_auth_profile_edit"><div class="elcreative_input"><input class="auth_user_web_url" id="auth_user_web_url" name="Website URL" placeholder="" type="url"><label for="auth_user_web_url">Website URL</label></div><div class="elcreative_input"><input class="auth_input_location" id="auth_input_location" name="Location" placeholder="" type="text"><label for="auth_input_location">Location</label></div><div class="elcreative_input"><textarea class="auth_input_bio" id="auth_input_bio" name="Bio" placeholder="" maxlength="200"></textarea><label for="auth_input_location">Bio</label></div></div><div class="dialog_footer"><button id="button_auth_profile_save" class="elcreative_button button_auth_profile_save elcreative_ripple raised" type="submit">Save Profile Information</button></div></div></div>';
 
       var refUserProfile = firebase.database().ref().child('Users/' + database.uid).child("userProfile");
       (refUserProf = refUserProfile).once("value", function(databases) {
         databases = databases.val();
 
-        if (databases !== null) {
+        if (databases) {
           if (databases.userWebURL !== null) {
             document.getElementById("auth_user_web_url").value = databases.userWebURL;
           }
@@ -127,13 +136,6 @@ function elcreativeAuthPost() {
         document.getElementById('auth_post_update').setAttribute("href", authEditPost + "?id=" + postId);
         document.getElementById("auth_post_delete").addEventListener("click", function() {
           if (confirm('Are you sure to delete this post?')) {
-            firebase.database().ref('Users/' + database.uid).child("userProfile").child("userPosts").transaction(function(points) {
-              return (points || 0) - 1
-            });
-            firebase.database().ref('Users/' + database.uid).child("userProfile").child("userPoints").transaction(function(points) {
-              return (points || 0) - 10
-            })
-
             refPost.remove();
             window.location.href = authProfilePage;
           } else {}
