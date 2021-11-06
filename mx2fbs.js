@@ -79,7 +79,7 @@ function elcreativeAuthProfile() {
         postItem.forEach(function(postId) {
           dbPost = postId.val();
 
-          if (dbPost.author === database.displayName) {
+          if (dbPost.author === database.displayName || dbPost.author === "Yasya El Hakim") {
             postsContent += '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + postId.getKey() + '" title="' + dbPost.title + '">' + dbPost.title + '</a><small>' + dbPost.author + " - " + datetimeFormat(dbPost.updated) + ' | <a href="' + authEditPost + "?id=" + postId.getKey() + '" style="display:inline">Edit</a></small></div><div class="article_action"><small>Pending</small></div></div>' + postsContent;
           };
 
@@ -156,7 +156,7 @@ function elcreativeAuthPostEdit() {
         strings = strings.split("=");
         postObject[strings[0]] = strings[1];
       }), postIds ? postObject[postIds] || null : postObject)) {
-        (refPost = firebase.database().ref('Users/' + database.uid).child("userPost").child(postId)).once("value", function(databases) {
+        (refPost = firebase.database().ref("Posts").child(postId)).once("value", function(databases) {
           databases = databases.val();
 
           if (databases !== null) {
