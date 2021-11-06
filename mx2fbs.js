@@ -75,7 +75,7 @@ function elcreativeAuthProfile() {
 
       var refUserPosts = firebase.database().ref().child("Posts");
       refUserPosts.once("value", function(postItem) {
-        var postsContent;
+        var postsContent = "";
         postItem.forEach(function(postId) {
           dbPost = postId.val();
 
