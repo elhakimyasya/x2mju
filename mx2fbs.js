@@ -1,12 +1,14 @@
 function elcreativeAuthLogin() {
   firebase.auth().onAuthStateChanged(function(database) {
     if (database) {
-      var refLoginUserProfile = firebase.database().ref().child('Users/' + database.uid).child("userProfile");
-      refLoginUserProfile.update({
-        userEmail: database.email,
-        userName: database.displayName,
-        userPhotoUrl: database.photoURL,
-        userUID: database.uid
+      var refLoginUserUid = firebase.database().ref().child('Users/' + database.uid);
+      refLoginUserUid.update({
+        userData: {
+          userEmail: database.email,
+          userName: database.displayName,
+          userPhotoUrl: database.photoURL,
+          userUID: database.uid
+        }
       }).then(function() {
         localStorage.setItem("auth_image", database.photoURL);
         window.location.href = authProfilePage;
@@ -41,13 +43,13 @@ function elcreativeAuthProfile() {
         databases = databases.val();
 
         if (databases) {
-          if (databases.userWebURL !== "undefined") {
+          if (databases.userWebURL !== null) {
             document.getElementById("auth_user_web_url").value = databases.userWebURL;
           }
           if (databases.userLocation !== null) {
             document.getElementById("auth_input_location").value = databases.userLocation;
           }
-          if (databases.userBio !== "undefined") {
+          if (databases.userBio !== null) {
             document.getElementById("auth_input_bio").value = databases.userBio;
             document.querySelector(".auth_bio").innerHTML = databases.userBio;
           }
