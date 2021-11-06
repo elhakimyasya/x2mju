@@ -90,7 +90,6 @@ function elcreativeAuthProfile() {
       var refUserUID = firebase.database().ref().child("Users/" + database.uid);
       var refUserRole = firebase.database().ref().child("Users/" + database.uid).child("userProfile/userRole");
       refUserUID.once("value", function(postItem) {
-        if (refUserRole.val() === "admin") {
           var userUID = "";
           userItem.forEach(function(userID) {
             userUID = userID.getKey() + userUID;
@@ -102,7 +101,6 @@ function elcreativeAuthProfile() {
           }
 
           easyToggleState();
-        }
       })
     } else {
       window.location.href = authLoginPage;
