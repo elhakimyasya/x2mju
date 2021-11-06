@@ -110,7 +110,7 @@ function elcreativeAuthPost() {
         postObject[url[0]] = url[1];
       }), postId ? postObject[postId] || null : postObject)) {
         postBoolean = false;
-        refPost = (database = firebase.database().ref("Posts").child(postId);
+        refPost = (database = firebase.database().ref("Posts")).child(postId);
         refPost.on("value", function(postItem) {
           var postData = postItem.val();
           if (postData) {
