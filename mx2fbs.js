@@ -71,36 +71,25 @@ function elcreativeAuthProfile() {
         }), false;
       });
 
-      var refUserPost = firebase.database().ref().child('Users/' + database.uid).child("userPost");
-      refUserPost.once("value", function(postItem) {
-        var postContent = "";
+
+
+      var refUserPosts = firebase.database().ref().child("Posts");
+      refUserPosts.once("value", function(postItem) {
+        var postsContent;
         postItem.forEach(function(postId) {
-          database = postId.val();
-          postContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + postId.getKey() + '" title="' + database.title + '">' + database.title + '</a><small>' + database.author + " - " + datetimeFormat(database.updated) + ' | <a href="' + authEditPost + "?id=" + postId.getKey() + '" style="display:inline">Edit</a></small></div><div class="article_action"><small>Pending</small></div></div>' + postContent;
-        });
+          dbPost = postId.val();
 
-        if (postContent !== "") {
-          document.querySelector(".elcreative_tab .tab_button_container").innerHTML += "<button id='tab_button_post' class='tab_button elcreative_ripple' type='button' aria-label='Posts' data-toggle-target='#tab_panel_post' aria-controls='tab_panel_post' role='tab' aria-selected='true' data-toggle-radio-group='tab_auth' data-toggle-arrows='' data-toggle-class='' data-toggle-is-active=''>Your Posts</button>";
-          document.querySelector(".elcreative_tab").innerHTML += "<div id='tab_panel_post' class='tab_panel_content tab_panel_post' role='tabpanel' aria-labelledby='tab_button_post' aria-hidden='true'>" + postContent + "</div>";
-        }
+          if (dbPost.author === database.displayName) {
+            postsContent += '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + postId.getKey() + '" title="' + dbPost.title + '">' + dbPost.title + '</a><small>' + dbPost.author + " - " + datetimeFormat(dbPost.updated) + ' | <a href="' + authEditPost + "?id=" + postId.getKey() + '" style="display:inline">Edit</a></small></div><div class="article_action"><small>Pending</small></div></div>' + postContent;
+          };
 
-        easyToggleState();
-      });
-
-      var refUserUID = firebase.database().ref().child("Users/" + database.uid);
-      var refUserRole = firebase.database().ref().child("Users/" + database.uid).child("userProfile/userRole");
-      refUserUID.once("value", function(postItem) {
-          var userUID = "";
-          userItem.forEach(function(userID) {
-            userUID = userID.getKey() + userUID;
-          });
-
-          if (userUID !== "") {
-            document.querySelector(".elcreative_tab .tab_button_container").innerHTML += "<button id='tab_button_user' class='tab_button elcreative_ripple' type='button' aria-label='Users' data-toggle-target='#tab_panel_user' aria-controls='tab_panel_user' role='tab'  data-toggle-radio-group='tab_auth' data-toggle-arrows='' data-toggle-class=''>Users</button>";
-            document.querySelector(".elcreative_tab").innerHTML += "<div id='tab_panel_user' class='tab_panel_content tab_panel_user' role='tabpanel' aria-labelledby='tab_button_user' aria-hidden='true'>" + userUID + "</div>";
+          if (postsContent !== "") {
+            document.querySelector(".elcreative_tab .tab_button_container").innerHTML += "<button id='tab_button_post' class='tab_button elcreative_ripple' type='button' aria-label='Posts' data-toggle-target='#tab_panel_post' aria-controls='tab_panel_post' role='tab' aria-selected='true' data-toggle-radio-group='tab_auth' data-toggle-arrows='' data-toggle-class='' data-toggle-is-active=''>Your Posts</button>";
+            document.querySelector(".elcreative_tab").innerHTML += "<div id='tab_panel_post' class='tab_panel_content tab_panel_post' role='tabpanel' aria-labelledby='tab_button_post' aria-hidden='true'>" + postContent + "</div>";
           }
 
           easyToggleState();
+        })
       })
     } else {
       window.location.href = authLoginPage;
@@ -348,7 +337,7 @@ function elcreativeAuthPostCreate() {
         postContent.status = "Pending";
 
         var refUid = firebase.database().ref('Users/' + database.uid);
-        var refPost = refUid.child("userPost");
+        var refPost = firebase.database().ref("Posts");
 
         refUid.child("userProfile").child("userPosts").transaction(function(points) {
           return (points || 0) + 1
