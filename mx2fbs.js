@@ -97,7 +97,7 @@ function elcreativeAuthProfile() {
           });
 
           if (userUID !== "") {
-            document.querySelector(".elcreative_tab .tab_button_container").innerHTML += "<button id='tab_button_user' class='tab_button elcreative_ripple' type='button' aria-label='Users' data-toggle-target='#tab_panel_user' aria-controls='tab_panel_user' role='tab' aria-selected='true' data-toggle-radio-group='tab_auth' data-toggle-arrows='' data-toggle-class='' data-toggle-is-active=''>Users</button>";
+            document.querySelector(".elcreative_tab .tab_button_container").innerHTML += "<button id='tab_button_user' class='tab_button elcreative_ripple' type='button' aria-label='Users' data-toggle-target='#tab_panel_user' aria-controls='tab_panel_user' role='tab' aria-selected='true' data-toggle-radio-group='tab_auth' data-toggle-arrows='' data-toggle-class=''>Users</button>";
             document.querySelector(".elcreative_tab").innerHTML += "<div id='tab_panel_user' class='tab_panel_content tab_panel_user' role='tabpanel' aria-labelledby='tab_button_user' aria-hidden='true'>" + userUID + "</div>";
           }
 
