@@ -38,8 +38,10 @@ function elcreativeAuthProfile() {
       refProfileUserProfile.once("value", function(dbUserProfile) {
         var value = dbUserProfile.val();
 
-        if (value.photoURL !== null) {
+        if (value.photoURL === null) {
           console.log(value.photoURL)
+        } else {
+          console.log(value.userPhotoUrl)
         }
       })
 
