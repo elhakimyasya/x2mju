@@ -41,13 +41,13 @@ function elcreativeAuthProfile() {
         databases = databases.val();
 
         if (databases !== null) {
-          if (database.userWebURL !== null) {
+          if (databases.userWebURL !== null) {
             document.getElementById("auth_user_web_url").value = databases.userWebURL;
           }
-          if (database.userLocation !== null) {
+          if (databases.userLocation !== null) {
             document.getElementById("auth_input_location").value = databases.userLocation;
           }
-          if (database.userBio !== null) {
+          if (databases.userBio !== null) {
             document.getElementById("auth_input_bio").value = databases.userBio;
             document.querySelector(".auth_bio").innerHTML = databases.userBio;
           }
