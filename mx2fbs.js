@@ -80,14 +80,14 @@ function elcreativeAuthProfile() {
           if (dbPost.author === database.displayName) {
             postsContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + postId.getKey() + '" title="' + dbPost.title + '">' + dbPost.title + '</a><small>' + dbPost.author + " - " + datetimeFormat(dbPost.updated) + ' | <a href="' + authEditPost + "?id=" + postId.getKey() + '" style="display:inline">Edit</a></small></div><div class="article_action"><small>Pending</small></div></div>' + postsContent;
           };
+        });
 
-          if (postsContent !== "") {
-            document.querySelector(".elcreative_tab .tab_button_container").innerHTML += "<button id='tab_button_post' class='tab_button elcreative_ripple' type='button' aria-label='Posts' data-toggle-target='#tab_panel_post' aria-controls='tab_panel_post' role='tab' aria-selected='true' data-toggle-radio-group='tab_auth' data-toggle-arrows='' data-toggle-class='' data-toggle-is-active=''>Posts</button>";
-            document.querySelector(".elcreative_tab").innerHTML += "<div id='tab_panel_post' class='tab_panel_content tab_panel_post' role='tabpanel' aria-labelledby='tab_button_post' aria-hidden='true'>" + postsContent + "</div>";
-          }
+        if (postsContent !== "") {
+          document.querySelector(".elcreative_tab .tab_button_container").innerHTML += "<button id='tab_button_post' class='tab_button elcreative_ripple' type='button' aria-label='Posts' data-toggle-target='#tab_panel_post' aria-controls='tab_panel_post' role='tab' aria-selected='true' data-toggle-radio-group='tab_auth' data-toggle-arrows='' data-toggle-class='' data-toggle-is-active=''>Posts</button>";
+          document.querySelector(".elcreative_tab").innerHTML += "<div id='tab_panel_post' class='tab_panel_content tab_panel_post' role='tabpanel' aria-labelledby='tab_button_post' aria-hidden='true'>" + postsContent + "</div>";
+        }
 
-          easyToggleState();
-        })
+        easyToggleState();
       })
     } else {
       window.location.href = authLoginPage;
