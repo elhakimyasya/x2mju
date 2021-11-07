@@ -71,10 +71,8 @@ function elcreativeAuthProfile() {
         }), false;
       });
 
-
-
       var refUserPosts = firebase.database().ref().child("Posts");
-      refUserPosts.once("value", function(postItem) {
+      refUserPosts.on("value", function(postItem) {
         var postsContent = "";
         postItem.forEach(function(postId) {
           dbPost = postId.val();
