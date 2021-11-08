@@ -29,8 +29,9 @@ function elcreativeAuthLogin() {
 
 function elcreativeAuthProfile() {
   firebase.auth().onAuthStateChanged(function(database) {
-    var refUserProf;
+    var userProfileData;
     if (database) {
+      var db = firebase.database().ref();
       document.getElementById("auth_logout").onclick = function() {
         firebase.auth().signOut();
         localStorage.removeItem("auth_image")
@@ -38,43 +39,28 @@ function elcreativeAuthProfile() {
 
       document.querySelector(".auth_profile_container").innerHTML = '<div class="auth_profile"><div class="auth_avatar"><span class="lazyload shimmer" data-image="' + database.photoURL + '"></span><button class="auth_profile_edit" type="button" aria-label="Profile Settings" data-toggle-class-on-target="active" data-toggle-target="#dialog_auth_profile_edit" aria-haspopup="listbox" aria-controls="dialog_auth_profile_edit" aria-expanded="false" data-toggle-outside data-toggle-escape><svg width="16" height="16" viewBox="0 0 24 24"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg></button></div><div class="auth_info"><div class="auth_name">' + database.displayName + '</div><div class="auth_email">' + database.email + '</div><div class="auth_bio"></div><div class="auth_action"><a href="/p/' + authCreatePost + '">Create Posts</a></div></div></div>      <div id="dialog_auth_profile_edit" class="elcreative_dialog dialog_auth_profile_edit" aria-hidden="true" role="listbox"><div class="dialog_container"><div class="dialog_header"><span>Profile Settings</span><button class="button_close_dialog elcreative_button_icon small" type="button" aria-label="Close Dialog" data-toggle-trigger-off><svg width="24" height="24" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg></button></div><div class="dialog_content dialog_auth_profile_edit"><div class="elcreative_input"><input class="auth_user_web_url" id="auth_user_web_url" name="Website URL" placeholder="" type="url"><label for="auth_user_web_url">Website URL</label></div><div class="elcreative_input"><input class="auth_input_location" id="auth_input_location" name="Location" placeholder="" type="text"><label for="auth_input_location">Location</label></div><div class="elcreative_input"><textarea class="auth_input_bio" id="auth_input_bio" name="Bio" placeholder="" maxlength="200"></textarea><label for="auth_input_location">Bio</label></div></div><div class="dialog_footer"><button id="button_auth_profile_save" class="elcreative_button button_auth_profile_save elcreative_ripple raised" type="submit">Save Profile Information</button></div></div></div>';
 
-      var refUserProfile = firebase.database().ref().child('Users/' + database.uid).child("userProfile");
-      (refUserProf = refUserProfile).on("value", function(databases) {
-        databases = databases.val();
+      var refUserProfile = db.child("Users/" + database.uid + "userProfile");
+      (userProfileData = refUserProfile).on("value", function(userProfileData) {
+        userProfileData = userProfileData.val();
 
-        if (databases.userWebURL !== undefined) {
-          document.getElementById("auth_user_web_url").value = databases.userWebURL;
+        if (userProfileData.userWebURL !== undefined) {
+          document.getElementById("auth_user_web_url").value = userProfileData.userWebURL;
         }
-        if (databases.userLocation !== undefined) {
-          document.getElementById("auth_input_location").value = databases.userLocation;
+        if (userProfileData.userLocation !== undefined) {
+          document.getElementById("auth_input_location").value = userProfileData.userLocation;
         }
-        if (databases.userBio !== undefined) {
-          document.getElementById("auth_input_bio").value = databases.userBio;
-          document.querySelector(".auth_bio").innerHTML = databases.userBio;
+        if (userProfileData.userBio !== undefined) {
+          document.getElementById("auth_input_bio").value = userProfileData.userBio;
+          document.querySelector(".auth_bio").innerHTML = userProfileData.userBio;
         }
 
         easyToggleState();
       });
 
-      document.getElementById("button_auth_profile_save").addEventListener("click", function(profileContent) {
-        profileContent.preventDefault();
-        functionSnackbar("Saving…", 5000);
-
-        (profileContent = {}).userWebURL = document.getElementById("auth_user_web_url").value;
-        profileContent.userLocation = document.getElementById("auth_input_location").value;
-        profileContent.userBio = document.getElementById("auth_input_bio").value;
-
-        refUserProfile.update(profileContent).then(function() {
-          location.reload();
-        }).catch(function(error) {
-          console.log(error);
-        }), false;
-      });
-
-      var refUserPosts = firebase.database().ref().child("Posts");
-      refUserPosts.on("value", function(postItem) {
+      var refUserPosts = db.child("Posts");
+      refUserPosts.on("value", function(userPostData) {
         var postsContent = "";
-        postItem.forEach(function(postId) {
+        userPostData.forEach(function(postId) {
           dbPost = postId.val();
 
           if (dbPost.author === database.displayName || dbPost.author !== "Yasya El Hakim") {
@@ -90,24 +76,20 @@ function elcreativeAuthProfile() {
         easyToggleState();
       });
 
-      var refUserList = firebase.database().ref().child("Users");
-      refUserList.on("value", function(userItem) {
-        var userContent = "";
+      document.getElementById("button_auth_profile_save").addEventListener("click", function(userProfileData) {
+        userProfileData.preventDefault();
+        functionSnackbar("Saving…", 5000);
 
-        userItem = userItem.child("userData");
-        userItem.forEach(function(userId) {
-          dbUser = userId.val();
+        (userProfileData = {}).userWebURL = document.getElementById("auth_user_web_url").value;
+        userProfileData.userLocation = document.getElementById("auth_input_location").value;
+        userProfileData.userBio = document.getElementById("auth_input_bio").value;
 
-          userContent = dbUser.userName + userContent
-        });
-
-        if (postsContent !== "") {
-          document.querySelector(".elcreative_tab .tab_button_container").innerHTML += "<button id='tab_button_user' class='tab_button elcreative_ripple' type='button' aria-label='Users' data-toggle-target='#tab_panel_user' aria-controls='tab_panel_user' role='tab' data-toggle-radio-group='tab_auth' data-toggle-arrows='' data-toggle-class=''>Users</button>";
-          document.querySelector(".elcreative_tab").innerHTML += "<div id='tab_panel_user' class='tab_panel_content tab_panel_user' role='tabpanel' aria-labelledby='tab_button_user' aria-hidden='true'>" + userContent + "</div>";
-        };
-
-        easyToggleState();
-      })
+        refUserProfile.update(userProfileData).then(function() {
+          location.reload();
+        }).catch(function(error) {
+          console.log(error);
+        }), false;
+      });
     } else {
       window.location.href = authLoginPage;
     }
@@ -127,7 +109,7 @@ function elcreativeAuthPost() {
         postObject[url[0]] = url[1];
       }), postId ? postObject[postId] || null : postObject)) {
         postBoolean = false;
-        refPost = (database = firebase.database().ref("Posts")).child(postId);
+        refPost = (database = firebase.database().ref("Posts/" + database.uid)).child(postId);
         refPost.on("value", function(postItem) {
           var postData = postItem.val();
           if (postData) {
@@ -173,7 +155,7 @@ function elcreativeAuthPostEdit() {
         strings = strings.split("=");
         postObject[strings[0]] = strings[1];
       }), postIds ? postObject[postIds] || null : postObject)) {
-        (refPost = firebase.database().ref("Posts").child(postId)).once("value", function(databases) {
+        (refPost = firebase.database().ref("Posts/" + database.uid).child(postId)).once("value", function(databases) {
           databases = databases.val();
 
           if (databases !== null) {
@@ -354,7 +336,7 @@ function elcreativeAuthPostCreate() {
         postContent.status = "Pending";
 
         var refUid = firebase.database().ref('Users/' + database.uid);
-        var refPost = firebase.database().ref("Posts");
+        var refPost = firebase.database().ref("Posts/" + database.uid);
 
         refUid.child("userProfile").child("userPosts").transaction(function(points) {
           return (points || 0) + 1
