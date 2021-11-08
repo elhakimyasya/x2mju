@@ -94,8 +94,8 @@ function elcreativeAuthProfile() {
       refUserList.on("value", function(userItem) {
         var userContent = "";
 
-        userItem = userItem.getKey();
-        userItem.child("userData").forEach(function(userId) {
+        userItem = userItem.child("userData");
+        userItem.forEach(function(userId) {
           dbUser = userId.val();
 
           userContent = dbUser.userName + userContent
