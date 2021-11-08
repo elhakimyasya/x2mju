@@ -57,15 +57,13 @@ function elcreativeAuthProfile() {
         easyToggleState();
       });
 
-      var refUserPosts = db.child("Posts");
+      var refUserPosts = db.child("Posts" + database.uid);
       refUserPosts.on("value", function(userPostData) {
         var postsContent = "";
         userPostData.forEach(function(postId) {
           dbPost = postId.val();
 
-          if (dbPost.author === database.displayName || dbPost.author !== "Yasya El Hakim") {
-            postsContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + postId.getKey() + '" title="' + dbPost.title + '">' + dbPost.title + '</a><small>' + dbPost.author + " - " + datetimeFormat(dbPost.updated) + ' | <a href="' + authEditPost + "?id=" + postId.getKey() + '" style="display:inline">Edit</a></small></div><div class="article_action"><small>Pending</small></div></div>' + postsContent;
-          };
+          postsContent = '<div class="auth_article"><div class="article_info"><a href="' + authUserPostPage + '?id=' + postId.getKey() + '" title="' + dbPost.title + '">' + dbPost.title + '</a><small>' + dbPost.author + " - " + datetimeFormat(dbPost.updated) + ' | <a href="' + authEditPost + "?id=" + postId.getKey() + '" style="display:inline">Edit</a></small></div><div class="article_action"><small>Pending</small></div></div>' + postsContent;
         });
 
         if (postsContent !== "") {
