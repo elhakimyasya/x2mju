@@ -57,7 +57,7 @@ function elcreativeAuthProfile() {
         easyToggleState();
       });
 
-      var refUserPosts = db.child("Posts" + database.uid);
+      var refUserPosts = db.child("Posts/" + database.uid);
       refUserPosts.on("value", function(userPostData) {
         var postsContent = "";
         userPostData.forEach(function(postId) {
