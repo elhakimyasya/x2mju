@@ -88,6 +88,25 @@ function elcreativeAuthProfile() {
         };
 
         easyToggleState();
+      });
+
+      var refUserList = firebase.database().ref().child("Users");
+      refUserList.on("value", function(userItem) {
+        var userContent = "";
+
+        userItem = userItem.getKey();
+        userItem.forEach(function(userId) {
+          dbUser = userId.val();
+
+          userContent = dbUser.userName + userContent
+        });
+
+        if (postsContent !== "") {
+          document.querySelector(".elcreative_tab .tab_button_container").innerHTML += "<button id='tab_button_post' class='tab_button elcreative_ripple' type='button' aria-label='Posts' data-toggle-target='#tab_panel_post' aria-controls='tab_panel_post' role='tab' aria-selected='true' data-toggle-radio-group='tab_auth' data-toggle-arrows='' data-toggle-class='' data-toggle-is-active=''>Users</button>";
+          document.querySelector(".elcreative_tab").innerHTML += "<div id='tab_panel_post' class='tab_panel_content tab_panel_post' role='tabpanel' aria-labelledby='tab_button_post' aria-hidden='true'>" + userContent + "</div>";
+        };
+
+        easyToggleState();
       })
     } else {
       window.location.href = authLoginPage;
