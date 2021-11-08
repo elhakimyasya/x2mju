@@ -43,13 +43,13 @@ function elcreativeAuthProfile() {
       (userProfileData = refUserProfile).on("value", function(userProfileData) {
         userProfileData = userProfileData.val();
 
-        if (userProfileData.userWebURL !== undefined) {
+        if (userProfileData.userWebURL !== undefined || userProfileData.userWebURL !== null) {
           document.getElementById("auth_user_web_url").value = userProfileData.userWebURL;
         }
-        if (userProfileData.userLocation !== undefined) {
+        if (userProfileData.userLocation !== undefined || userProfileData.userLocation !== null) {
           document.getElementById("auth_input_location").value = userProfileData.userLocation;
         }
-        if (userProfileData.userBio !== undefined) {
+        if (userProfileData.userBio !== undefined || userProfileData.userBio !== null) {
           document.getElementById("auth_input_bio").value = userProfileData.userBio;
           document.querySelector(".auth_bio").innerHTML = userProfileData.userBio;
         }
