@@ -1,7 +1,7 @@
 const firebaseConfig = {
     // AIzaSyDwiv0JN7BQeuc6XEYLBf_uTHhYZNj-65I
     // AIzaSyCmWRraw2UZWfp_C6p3a4QYhci5LmhtSfY
-    apiKey: "AIzaSyDwiv0JN7BQeuc6XEYLBf_uTHhYZNj-65I",
+    apiKey: "AIzaSyCmWRraw2UZWfp_C6p3a4QYhci5LmhtSfY",
     authDomain: "elc-academy.firebaseapp.com",
     databaseURL: "https://elc-academy-default-rtdb.firebaseio.com",
     projectId: "elc-academy",
