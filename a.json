@@ -13,7 +13,7 @@
 		"redirect_url": "",
 		"display_page_menu": "false",
 		"display_view_on_site_menu": "false",
-		"custom_label_list": "false",
+		"custom_label_list": "true",
 		"show_post_header": "false",
 		"show_post_list_short_description": "true",
 		"show_post_date": "false",
@@ -28,7 +28,7 @@
         "ad_status": "1",
 		"ad_type": "admob",
 		"backup_ads": "none",
-        "startapp_app_id": "0",
+        	"startapp_app_id": "0",
 
 		"admob_publisher_id": "pub-9969565481002906",
 		"admob_app_id": "ca-app-pub-9969565481002906~2326502908",
